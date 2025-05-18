@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="dbb3405576614744b5fe17d8a1dbd30a" Name="Diagram1">
+        <EntityTypeShape EntityType="dbVeterinariaModel.Cama" Width="1.5" PointX="5.25" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbVeterinariaModel.Cirugia" Width="1.5" PointX="7.5" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbVeterinariaModel.Cita" Width="1.5" PointX="10.5" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbVeterinariaModel.Ciudad" Width="1.5" PointX="0.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbVeterinariaModel.Compra" Width="1.5" PointX="7.5" PointY="25.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbVeterinariaModel.Detalle_Factura" Width="1.5" PointX="9.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbVeterinariaModel.Empleado" Width="1.5" PointX="5.25" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbVeterinariaModel.Especie" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbVeterinariaModel.Factura" Width="1.5" PointX="7.5" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbVeterinariaModel.Hospitalizacion" Width="1.5" PointX="7.5" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbVeterinariaModel.Inventario_Sede" Width="1.5" PointX="5.25" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbVeterinariaModel.Mascota" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbVeterinariaModel.Productos_Farmacia" Width="1.5" PointX="5.25" PointY="21.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbVeterinariaModel.Productos_Proveedor" Width="1.5" PointX="5.25" PointY="25.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbVeterinariaModel.Propietario" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbVeterinariaModel.Proveedore" Width="1.5" PointX="3" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbVeterinariaModel.Raza" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbVeterinariaModel.Sede" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbVeterinariaModel.Servicios_Adicionales" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="dbVeterinariaModel.FK__Cama__ID_Sede__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="dbVeterinariaModel.FK__Hospitali__ID_Ca__5FB337D6" ManuallyRouted="false" />
+        <AssociationConnector Association="dbVeterinariaModel.FK__Cirugia__ID_Empl__59FA5E80" ManuallyRouted="false" />
+        <AssociationConnector Association="dbVeterinariaModel.FK__Cirugia__ID_Masc__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="dbVeterinariaModel.FK__Cirugia__ID_Prod__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="dbVeterinariaModel.FK__Cirugia__ID_Sede__5AEE82B9" ManuallyRouted="false" />
+        <AssociationConnector Association="dbVeterinariaModel.FK__Detalle_F__ID_Ci__6B24EA82" ManuallyRouted="false" />
+        <AssociationConnector Association="dbVeterinariaModel.FK__Cita__ID_Emplead__6383C8BA" ManuallyRouted="false" />
+        <AssociationConnector Association="dbVeterinariaModel.FK__Cita__ID_Mascota__628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="dbVeterinariaModel.FK__Cita__ID_Sede__6477ECF3" ManuallyRouted="false" />
+        <AssociationConnector Association="dbVeterinariaModel.FK__Sede__ID_Ciudad__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="dbVeterinariaModel.FK__Compra__ID_Produ__71D1E811" ManuallyRouted="false" />
+        <AssociationConnector Association="dbVeterinariaModel.FK__Detalle_F__ID_Fa__6A30C649" ManuallyRouted="false" />
+        <AssociationConnector Association="dbVeterinariaModel.FK__Detalle_F__ID_Ho__6C190EBB" ManuallyRouted="false" />
+        <AssociationConnector Association="dbVeterinariaModel.FK__Detalle_F__ID_Pr__6D0D32F4" ManuallyRouted="false" />
+        <AssociationConnector Association="dbVeterinariaModel.FK__Empleado__ID_Sed__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="dbVeterinariaModel.FK__Raza__ID_Especie__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="dbVeterinariaModel.FK__Factura__ID_Clie__6754599E" ManuallyRouted="false" />
+        <AssociationConnector Association="dbVeterinariaModel.FK__Hospitali__ID_Ma__5DCAEF64" ManuallyRouted="false" />
+        <AssociationConnector Association="dbVeterinariaModel.FK__Hospitali__ID_Pr__5EBF139D" ManuallyRouted="false" />
+        <AssociationConnector Association="dbVeterinariaModel.FK__Inventari__ID_Pr__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="dbVeterinariaModel.FK__Inventari__ID_Pr__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="dbVeterinariaModel.FK__Inventari__ID_Se__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="dbVeterinariaModel.FK__Mascota__ID_Prop__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="dbVeterinariaModel.FK__Mascota__ID_Raza__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="dbVeterinariaModel.FK__Productos__ID_Pr__4E88ABD4" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
