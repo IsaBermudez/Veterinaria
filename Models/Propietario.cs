@@ -21,7 +21,7 @@ namespace VeterinariaServ.Models
             this.Facturas = new HashSet<Factura>();
             this.Mascotas = new HashSet<Mascota>();
         }
-        [JsonIgnore]
+
 
         public int Cedula { get; set; }
         public string Nombre { get; set; }
