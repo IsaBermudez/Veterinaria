@@ -9,6 +9,7 @@
 
 namespace VeterinariaServ.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -19,7 +20,8 @@ namespace VeterinariaServ.Models
         public Nullable<int> Cantidad { get; set; }
         public Nullable<decimal> Costo { get; set; }
         public Nullable<System.DateTime> Fecha { get; set; }
-    
+        [JsonIgnore]
+
         public virtual Productos_Proveedor Productos_Proveedor { get; set; }
     }
 }

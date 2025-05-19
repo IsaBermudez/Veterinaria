@@ -9,6 +9,7 @@
 
 namespace VeterinariaServ.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -19,9 +20,12 @@ namespace VeterinariaServ.Models
         public Nullable<int> ID_ProductoProveedor { get; set; }
         public Nullable<int> ID_Sede { get; set; }
         public Nullable<int> Cantidad { get; set; }
-    
+
+        [JsonIgnore]
         public virtual Productos_Farmacia Productos_Farmacia { get; set; }
+        [JsonIgnore]
         public virtual Productos_Proveedor Productos_Proveedor { get; set; }
+        [JsonIgnore]
         public virtual Sede Sede { get; set; }
     }
 }
