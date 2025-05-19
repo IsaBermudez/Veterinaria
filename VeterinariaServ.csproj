@@ -165,6 +165,7 @@
     <Compile Include="Clases\clsMascota.cs" />
     <Compile Include="Clases\clsPropietario.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MascotasController.cs" />
     <Compile Include="Controllers\PropietariosController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
