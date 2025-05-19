@@ -9,6 +9,7 @@
 
 namespace VeterinariaServ.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -26,11 +27,14 @@ namespace VeterinariaServ.Models
         public string Cargo { get; set; }
         public string Telefono { get; set; }
         public Nullable<int> ID_Sede { get; set; }
-    
+        [JsonIgnore]
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cirugia> Cirugias { get; set; }
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cita> Citas { get; set; }
+        [JsonIgnore]
         public virtual Sede Sede { get; set; }
     }
 }

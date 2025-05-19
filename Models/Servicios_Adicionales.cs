@@ -11,11 +11,13 @@ namespace VeterinariaServ.Models
 {
     using System;
     using System.Collections.Generic;
-    
+
+
     public partial class Servicios_Adicionales
     {
         public int ID { get; set; }
         public string Nombre { get; set; }
         public Nullable<decimal> Costo { get; set; }
+
     }
 }

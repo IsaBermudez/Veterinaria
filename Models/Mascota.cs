@@ -9,6 +9,7 @@
 
 namespace VeterinariaServ.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -21,21 +22,26 @@ namespace VeterinariaServ.Models
             this.Citas = new HashSet<Cita>();
             this.Hospitalizacions = new HashSet<Hospitalizacion>();
         }
-    
+        [JsonIgnore]
         public int ID { get; set; }
         public string Nombre { get; set; }
         public Nullable<System.DateTime> FechaNacimiento { get; set; }
         public string Sexo { get; set; }
         public Nullable<int> ID_Raza { get; set; }
         public Nullable<int> ID_Propietario { get; set; }
-    
+        [JsonIgnore]
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cirugia> Cirugias { get; set; }
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cita> Citas { get; set; }
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Hospitalizacion> Hospitalizacions { get; set; }
+        [JsonIgnore]
         public virtual Propietario Propietario { get; set; }
+        [JsonIgnore]
         public virtual Raza Raza { get; set; }
     }
 }

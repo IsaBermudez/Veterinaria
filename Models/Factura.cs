@@ -9,6 +9,7 @@
 
 namespace VeterinariaServ.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -19,14 +20,16 @@ namespace VeterinariaServ.Models
         {
             this.Detalle_Factura = new HashSet<Detalle_Factura>();
         }
-    
+        [JsonIgnore]
         public int ID { get; set; }
         public Nullable<System.DateTime> Fecha { get; set; }
         public Nullable<decimal> Total { get; set; }
         public Nullable<int> ID_Cliente { get; set; }
-    
+        [JsonIgnore]
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Detalle_Factura> Detalle_Factura { get; set; }
+        [JsonIgnore]
         public virtual Propietario Propietario { get; set; }
     }
 }
