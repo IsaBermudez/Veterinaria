@@ -4,12 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using VeterinariaServ.Clases;
 using VeterinariaServ.Models;
 
 namespace VeterinariaServ.Controllers
 {
-    [RoutePrefix("api/Mascotas")]
     public class MascotasController : ApiController
     {
         [HttpGet]
