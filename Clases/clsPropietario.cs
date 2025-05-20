@@ -37,8 +37,8 @@ namespace VeterinariaServ.Clases
                 return "La cedula del propietario no es válida";
             }
             dbVeterinaria.Propietarios.AddOrUpdate(propietario); 
-            dbVeterinaria.SaveChanges(); //
-            return "Se actualizó el propiertario correctamente"; 
+            dbVeterinaria.SaveChanges(); 
+            return "Se actualizó el propietario correctamente"; 
 
         }
 
@@ -62,7 +62,7 @@ namespace VeterinariaServ.Clases
                 Propietario prop = Consultar(Cedula); 
                 if (prop == null)
                 {
-                    return "La cedula del empleado no existe";
+                    return "La cedula del propietario no existe";
                 }
                 dbVeterinaria.Propietarios.Remove(prop); 
                 dbVeterinaria.SaveChanges(); 
