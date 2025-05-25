@@ -311,6 +311,7 @@
     <Content Include="Models\dbVeterinaria.edmx.diagram">
       <DependentUpon>dbVeterinaria.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\site26449-WebDeploy.pubxml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
