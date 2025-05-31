@@ -12,18 +12,22 @@ namespace VeterinariaServ.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Ciudad
+    public partial class InventarioFarmacia
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Ciudad()
+        public InventarioFarmacia()
         {
-            this.Sedes = new HashSet<Sede>();
+            this.Inventario_Sede = new HashSet<Inventario_Sede>();
         }
     
-        public int ID { get; set; }
+        public int Id_Inventario { get; set; }
+        public int Id_Medicamento { get; set; }
         public string Nombre { get; set; }
+        public string Descripcion { get; set; }
+        public string Unidad_Medida { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Sede> Sedes { get; set; }
+        public virtual ICollection<Inventario_Sede> Inventario_Sede { get; set; }
+        public virtual Productos_Farmacia Productos_Farmacia { get; set; }
     }
 }

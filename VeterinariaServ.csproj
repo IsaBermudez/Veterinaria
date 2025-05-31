@@ -177,6 +177,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AtencionServicioAdicional.cs">
+      <DependentUpon>dbVeterinaria.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Cama.cs">
       <DependentUpon>dbVeterinaria.tt</DependentUpon>
     </Compile>
@@ -216,16 +219,37 @@
     <Compile Include="Models\Especie.cs">
       <DependentUpon>dbVeterinaria.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EstadosOrdenCompra.cs">
+      <DependentUpon>dbVeterinaria.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Factura.cs">
       <DependentUpon>dbVeterinaria.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\HistorialCompra.cs">
+      <DependentUpon>dbVeterinaria.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Hospitalizacion.cs">
+      <DependentUpon>dbVeterinaria.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InventarioFarmacia.cs">
       <DependentUpon>dbVeterinaria.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Inventario_Sede.cs">
       <DependentUpon>dbVeterinaria.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Mascota.cs">
+      <DependentUpon>dbVeterinaria.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MetodoPago.cs">
+      <DependentUpon>dbVeterinaria.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrdenesCompra.cs">
+      <DependentUpon>dbVeterinaria.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrdenesCompraDetalle.cs">
+      <DependentUpon>dbVeterinaria.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Prescripcion.cs">
       <DependentUpon>dbVeterinaria.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Productos_Farmacia.cs">
@@ -246,7 +270,7 @@
     <Compile Include="Models\Sede.cs">
       <DependentUpon>dbVeterinaria.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Servicios_Adicionales.cs">
+    <Compile Include="Models\ServiciosAdicionale.cs">
       <DependentUpon>dbVeterinaria.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

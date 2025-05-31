@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -9,9 +11,12 @@ namespace VeterinariaServ
     {
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
+            // Configurar JSON para ignorar referencias circulares y usar contract resolver por defecto
+            var json = config.Formatters.JsonFormatter;
+            json.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            json.SerializerSettings.ContractResolver = new DefaultContractResolver();
 
-            // Web API routes
+            // Rutas de Web API
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(

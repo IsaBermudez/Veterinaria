@@ -12,18 +12,24 @@ namespace VeterinariaServ.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Ciudad
+    public partial class ServiciosAdicionale
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Ciudad()
+        public ServiciosAdicionale()
         {
-            this.Sedes = new HashSet<Sede>();
+            this.AtencionServicioAdicionals = new HashSet<AtencionServicioAdicional>();
+            this.Detalle_Factura = new HashSet<Detalle_Factura>();
         }
     
-        public int ID { get; set; }
-        public string Nombre { get; set; }
+        public int IdServicio { get; set; }
+        public string NombreServicio { get; set; }
+        public string Categoria { get; set; }
+        public Nullable<decimal> Costo { get; set; }
+        public Nullable<bool> Estado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Sede> Sedes { get; set; }
+        public virtual ICollection<AtencionServicioAdicional> AtencionServicioAdicionals { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Detalle_Factura> Detalle_Factura { get; set; }
     }
 }

@@ -12,6 +12,11 @@ namespace VeterinariaServ.Clases
         private dbVeterinariaEntities dbVeterinaria = new dbVeterinariaEntities();
         public Raza raza { get; set; }
 
+        public clsRaza()
+        {
+            dbVeterinaria = new dbVeterinariaEntities();
+            dbVeterinaria.Configuration.LazyLoadingEnabled = false;
+        }
 
         public string Insertar()
         {

@@ -12,24 +12,28 @@ namespace VeterinariaServ.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Propietario
+    public partial class OrdenesCompra
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Propietario()
+        public OrdenesCompra()
         {
-            this.Facturas = new HashSet<Factura>();
-            this.Mascotas = new HashSet<Mascota>();
+            this.HistorialCompras = new HashSet<HistorialCompra>();
+            this.OrdenesCompraDetalles = new HashSet<OrdenesCompraDetalle>();
         }
     
-        public int Cedula { get; set; }
-        public string Nombre { get; set; }
-        public string Direccion { get; set; }
-        public string Telefono { get; set; }
-        public string Correo { get; set; }
+        public int IdCompra { get; set; }
+        public Nullable<int> IdProveedor { get; set; }
+        public Nullable<int> IdEstado { get; set; }
+        public Nullable<int> IdMetodoPago { get; set; }
+        public Nullable<System.DateTime> FechaOrden { get; set; }
+        public Nullable<decimal> Total { get; set; }
     
+        public virtual EstadosOrdenCompra EstadosOrdenCompra { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Factura> Facturas { get; set; }
+        public virtual ICollection<HistorialCompra> HistorialCompras { get; set; }
+        public virtual MetodoPago MetodoPago { get; set; }
+        public virtual Proveedore Proveedore { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Mascota> Mascotas { get; set; }
+        public virtual ICollection<OrdenesCompraDetalle> OrdenesCompraDetalles { get; set; }
     }
 }

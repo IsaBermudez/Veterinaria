@@ -12,7 +12,11 @@ namespace VeterinariaServ.Clases
         private dbVeterinariaEntities dbVeterinaria = new dbVeterinariaEntities();
         public Propietario propietario { get; set; }
 
-
+        public clsPropietario()
+        {
+            dbVeterinaria = new dbVeterinariaEntities();
+            dbVeterinaria.Configuration.LazyLoadingEnabled = false;
+        }
         public string Insertar()
         {
             try

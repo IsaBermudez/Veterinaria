@@ -12,14 +12,17 @@ namespace VeterinariaServ.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Compra
+    public partial class AtencionServicioAdicional
     {
-        public int ID { get; set; }
-        public Nullable<int> ID_ProductosProveedor { get; set; }
-        public Nullable<int> Cantidad { get; set; }
-        public Nullable<decimal> Costo { get; set; }
-        public Nullable<System.DateTime> Fecha { get; set; }
+        public int IdAtencion { get; set; }
+        public Nullable<int> IdMascota { get; set; }
+        public Nullable<int> IdServicio { get; set; }
+        public Nullable<int> IdEmpleado { get; set; }
+        public Nullable<System.DateTime> FechaAtencion { get; set; }
+        public string Observaciones { get; set; }
     
-        public virtual Productos_Proveedor Productos_Proveedor { get; set; }
+        public virtual Empleado Empleado { get; set; }
+        public virtual Mascota Mascota { get; set; }
+        public virtual ServiciosAdicionale ServiciosAdicionale { get; set; }
     }
 }

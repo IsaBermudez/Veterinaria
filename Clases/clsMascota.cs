@@ -11,6 +11,11 @@ namespace VeterinariaServ.Clases
     {
         private dbVeterinariaEntities veterinaria = new dbVeterinariaEntities();
         public Mascota Mascota { get; set; }
+        public clsMascota()
+        {
+            veterinaria = new dbVeterinariaEntities();
+            veterinaria.Configuration.LazyLoadingEnabled = false;
+        }
 
         public List<Mascota> ConsultarTodos()
         {

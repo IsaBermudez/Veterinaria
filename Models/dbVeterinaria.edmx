@@ -4,7 +4,18 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="dbVeterinariaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="dbVeterinariaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AtencionServicioAdicional">
+          <Key>
+            <PropertyRef Name="IdAtencion" />
+          </Key>
+          <Property Name="IdAtencion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdMascota" Type="int" />
+          <Property Name="IdServicio" Type="int" />
+          <Property Name="IdEmpleado" Type="int" />
+          <Property Name="FechaAtencion" Type="datetime" />
+          <Property Name="Observaciones" Type="nvarchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="Cama">
           <Key>
             <PropertyRef Name="ID" />
@@ -63,6 +74,7 @@
           <Property Name="ID_Hospitalizacion" Type="int" />
           <Property Name="ID_ProductoFarmacia" Type="int" />
           <Property Name="PrecioUnitario" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="ID_ServicioAdicional" Type="int" />
         </EntityType>
         <EntityType Name="Empleado">
           <Key>
@@ -81,6 +93,13 @@
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="EstadosOrdenCompra">
+          <Key>
+            <PropertyRef Name="IdEstado" />
+          </Key>
+          <Property Name="IdEstado" Type="int" Nullable="false" />
+          <Property Name="NombreEstado" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
         <EntityType Name="Factura">
           <Key>
             <PropertyRef Name="ID" />
@@ -89,6 +108,15 @@
           <Property Name="Fecha" Type="date" />
           <Property Name="Total" Type="decimal" Precision="10" Scale="2" />
           <Property Name="ID_Cliente" Type="int" />
+        </EntityType>
+        <EntityType Name="HistorialCompra">
+          <Key>
+            <PropertyRef Name="EntregaID" />
+          </Key>
+          <Property Name="EntregaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrdenCompraID" Type="int" />
+          <Property Name="FechaEntrega" Type="datetime" />
+          <Property Name="Observaciones" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Hospitalizacion">
           <Key>
@@ -111,6 +139,17 @@
           <Property Name="ID_ProductoProveedor" Type="int" />
           <Property Name="ID_Sede" Type="int" />
           <Property Name="Cantidad" Type="int" />
+          <Property Name="Id_Inventario" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InventarioFarmacia">
+          <Key>
+            <PropertyRef Name="Id_Inventario" />
+          </Key>
+          <Property Name="Id_Inventario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Medicamento" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="255" />
+          <Property Name="Unidad_Medida" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Mascota">
           <Key>
@@ -122,6 +161,46 @@
           <Property Name="Sexo" Type="varchar" MaxLength="10" />
           <Property Name="ID_Raza" Type="int" />
           <Property Name="ID_Propietario" Type="int" />
+        </EntityType>
+        <EntityType Name="MetodoPago">
+          <Key>
+            <PropertyRef Name="IdMetodoPago" />
+          </Key>
+          <Property Name="IdMetodoPago" Type="int" Nullable="false" />
+          <Property Name="NombreMetodo" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrdenesCompra">
+          <Key>
+            <PropertyRef Name="IdCompra" />
+          </Key>
+          <Property Name="IdCompra" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdProveedor" Type="int" />
+          <Property Name="IdEstado" Type="int" />
+          <Property Name="IdMetodoPago" Type="int" />
+          <Property Name="FechaOrden" Type="datetime" />
+          <Property Name="Total" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="OrdenesCompraDetalle">
+          <Key>
+            <PropertyRef Name="OrdenCompraDetalleID" />
+          </Key>
+          <Property Name="OrdenCompraDetalleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrdenCompraID" Type="int" />
+          <Property Name="ProductoID" Type="int" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="PrecioUnitario" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="SubTotal" Type="decimal" Precision="29" Scale="2" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="Prescripcion">
+          <Key>
+            <PropertyRef Name="Id_Prescripcion" />
+          </Key>
+          <Property Name="Id_Prescripcion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Paciente" Type="int" Nullable="false" />
+          <Property Name="Id_Medicamento" Type="int" Nullable="false" />
+          <Property Name="Id_Medico" Type="int" Nullable="false" />
+          <Property Name="Fecha_Prescripcion" Type="datetime" Nullable="false" />
+          <Property Name="Cantidad" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Productos_Farmacia">
           <Key>
@@ -180,15 +259,53 @@
           <Property Name="Telefono" Type="varchar" MaxLength="20" />
           <Property Name="ID_Ciudad" Type="int" />
         </EntityType>
-        <EntityType Name="Servicios_Adicionales">
+        <EntityType Name="ServiciosAdicionales">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="IdServicio" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="100" />
-          <Property Name="Costo" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="IdServicio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreServicio" Type="nvarchar" MaxLength="100" />
+          <Property Name="Categoria" Type="nvarchar" MaxLength="50" />
+          <Property Name="Costo" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Estado" Type="bit" />
         </EntityType>
-        <Association Name="FK__Cama__ID_Sede__49C3F6B7">
+        <Association Name="FK__AtencionS__IdEmp__3864608B">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="0..1" />
+          <End Role="AtencionServicioAdicional" Type="Self.AtencionServicioAdicional" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AtencionServicioAdicional">
+              <PropertyRef Name="IdEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AtencionS__IdMas__367C1819">
+          <End Role="Mascota" Type="Self.Mascota" Multiplicity="0..1" />
+          <End Role="AtencionServicioAdicional" Type="Self.AtencionServicioAdicional" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mascota">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AtencionServicioAdicional">
+              <PropertyRef Name="IdMascota" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AtencionS__IdSer__37703C52">
+          <End Role="ServiciosAdicionales" Type="Self.ServiciosAdicionales" Multiplicity="0..1" />
+          <End Role="AtencionServicioAdicional" Type="Self.AtencionServicioAdicional" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServiciosAdicionales">
+              <PropertyRef Name="IdServicio" />
+            </Principal>
+            <Dependent Role="AtencionServicioAdicional">
+              <PropertyRef Name="IdServicio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cama__ID_Sede__48CFD27E">
           <End Role="Sede" Type="Self.Sede" Multiplicity="0..1" />
           <End Role="Cama" Type="Self.Cama" Multiplicity="*" />
           <ReferentialConstraint>
@@ -200,7 +317,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Cirugia__ID_Empl__59FA5E80">
+        <Association Name="FK__Cirugia__ID_Empl__59063A47">
           <End Role="Empleado" Type="Self.Empleado" Multiplicity="0..1" />
           <End Role="Cirugia" Type="Self.Cirugia" Multiplicity="*" />
           <ReferentialConstraint>
@@ -212,7 +329,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Cirugia__ID_Masc__5812160E">
+        <Association Name="FK__Cirugia__ID_Masc__571DF1D5">
           <End Role="Mascota" Type="Self.Mascota" Multiplicity="0..1" />
           <End Role="Cirugia" Type="Self.Cirugia" Multiplicity="*" />
           <ReferentialConstraint>
@@ -224,7 +341,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Cirugia__ID_Prod__59063A47">
+        <Association Name="FK__Cirugia__ID_Prod__5812160E">
           <End Role="Productos_Proveedor" Type="Self.Productos_Proveedor" Multiplicity="0..1" />
           <End Role="Cirugia" Type="Self.Cirugia" Multiplicity="*" />
           <ReferentialConstraint>
@@ -236,7 +353,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Cirugia__ID_Sede__5AEE82B9">
+        <Association Name="FK__Cirugia__ID_Sede__59FA5E80">
           <End Role="Sede" Type="Self.Sede" Multiplicity="0..1" />
           <End Role="Cirugia" Type="Self.Cirugia" Multiplicity="*" />
           <ReferentialConstraint>
@@ -248,7 +365,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Cita__ID_Emplead__6383C8BA">
+        <Association Name="FK__Cita__ID_Emplead__628FA481">
           <End Role="Empleado" Type="Self.Empleado" Multiplicity="0..1" />
           <End Role="Cita" Type="Self.Cita" Multiplicity="*" />
           <ReferentialConstraint>
@@ -260,7 +377,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Cita__ID_Mascota__628FA481">
+        <Association Name="FK__Cita__ID_Mascota__619B8048">
           <End Role="Mascota" Type="Self.Mascota" Multiplicity="0..1" />
           <End Role="Cita" Type="Self.Cita" Multiplicity="*" />
           <ReferentialConstraint>
@@ -272,7 +389,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Cita__ID_Sede__6477ECF3">
+        <Association Name="FK__Cita__ID_Sede__6383C8BA">
           <End Role="Sede" Type="Self.Sede" Multiplicity="0..1" />
           <End Role="Cita" Type="Self.Cita" Multiplicity="*" />
           <ReferentialConstraint>
@@ -284,7 +401,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Compra__ID_Produ__71D1E811">
+        <Association Name="FK__Compra__ID_Produ__70DDC3D8">
           <End Role="Productos_Proveedor" Type="Self.Productos_Proveedor" Multiplicity="0..1" />
           <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
           <ReferentialConstraint>
@@ -296,7 +413,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Detalle_F__ID_Ci__6B24EA82">
+        <Association Name="FK__Detalle_F__ID_Ci__6A30C649">
           <End Role="Cirugia" Type="Self.Cirugia" Multiplicity="0..1" />
           <End Role="Detalle_Factura" Type="Self.Detalle_Factura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -308,7 +425,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Detalle_F__ID_Fa__6A30C649">
+        <Association Name="FK__Detalle_F__ID_Fa__693CA210">
           <End Role="Factura" Type="Self.Factura" Multiplicity="0..1" />
           <End Role="Detalle_Factura" Type="Self.Detalle_Factura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -320,7 +437,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Detalle_F__ID_Ho__6C190EBB">
+        <Association Name="FK__Detalle_F__ID_Ho__6B24EA82">
           <End Role="Hospitalizacion" Type="Self.Hospitalizacion" Multiplicity="0..1" />
           <End Role="Detalle_Factura" Type="Self.Detalle_Factura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -332,7 +449,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Detalle_F__ID_Pr__6D0D32F4">
+        <Association Name="FK__Detalle_F__ID_Pr__6C190EBB">
           <End Role="Productos_Farmacia" Type="Self.Productos_Farmacia" Multiplicity="0..1" />
           <End Role="Detalle_Factura" Type="Self.Detalle_Factura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -344,7 +461,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Empleado__ID_Sed__46E78A0C">
+        <Association Name="FK__Detalle_F__ID_Se__3A4CA8FD">
+          <End Role="ServiciosAdicionales" Type="Self.ServiciosAdicionales" Multiplicity="0..1" />
+          <End Role="Detalle_Factura" Type="Self.Detalle_Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServiciosAdicionales">
+              <PropertyRef Name="IdServicio" />
+            </Principal>
+            <Dependent Role="Detalle_Factura">
+              <PropertyRef Name="ID_ServicioAdicional" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Empleado__ID_Sed__45F365D3">
           <End Role="Sede" Type="Self.Sede" Multiplicity="0..1" />
           <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
           <ReferentialConstraint>
@@ -356,7 +485,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Factura__ID_Clie__6754599E">
+        <Association Name="FK__Factura__ID_Clie__66603565">
           <End Role="Propietario" Type="Self.Propietario" Multiplicity="0..1" />
           <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -368,7 +497,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Hospitali__ID_Ca__5FB337D6">
+        <Association Name="FK__Historial__Orden__30C33EC3">
+          <End Role="OrdenesCompra" Type="Self.OrdenesCompra" Multiplicity="0..1" />
+          <End Role="HistorialCompra" Type="Self.HistorialCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrdenesCompra">
+              <PropertyRef Name="IdCompra" />
+            </Principal>
+            <Dependent Role="HistorialCompra">
+              <PropertyRef Name="OrdenCompraID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Hospitali__ID_Ca__5EBF139D">
           <End Role="Cama" Type="Self.Cama" Multiplicity="0..1" />
           <End Role="Hospitalizacion" Type="Self.Hospitalizacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -380,7 +521,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Hospitali__ID_Ma__5DCAEF64">
+        <Association Name="FK__Hospitali__ID_Ma__5CD6CB2B">
           <End Role="Mascota" Type="Self.Mascota" Multiplicity="0..1" />
           <End Role="Hospitalizacion" Type="Self.Hospitalizacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -392,7 +533,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Hospitali__ID_Pr__5EBF139D">
+        <Association Name="FK__Hospitali__ID_Pr__5DCAEF64">
           <End Role="Productos_Farmacia" Type="Self.Productos_Farmacia" Multiplicity="0..1" />
           <End Role="Hospitalizacion" Type="Self.Hospitalizacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -404,7 +545,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Inventari__ID_Pr__5441852A">
+        <Association Name="FK__Inventari__Id_In__1BC821DD">
+          <End Role="InventarioFarmacia" Type="Self.InventarioFarmacia" Multiplicity="1" />
+          <End Role="Inventario_Sede" Type="Self.Inventario_Sede" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InventarioFarmacia">
+              <PropertyRef Name="Id_Inventario" />
+            </Principal>
+            <Dependent Role="Inventario_Sede">
+              <PropertyRef Name="Id_Inventario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Inventari__Id_Me__1AD3FDA4">
+          <End Role="Productos_Farmacia" Type="Self.Productos_Farmacia" Multiplicity="1" />
+          <End Role="InventarioFarmacia" Type="Self.InventarioFarmacia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Productos_Farmacia">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="InventarioFarmacia">
+              <PropertyRef Name="Id_Medicamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Inventari__ID_Pr__534D60F1">
           <End Role="Productos_Farmacia" Type="Self.Productos_Farmacia" Multiplicity="0..1" />
           <End Role="Inventario_Sede" Type="Self.Inventario_Sede" Multiplicity="*" />
           <ReferentialConstraint>
@@ -416,7 +581,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Inventari__ID_Pr__5535A963">
+        <Association Name="FK__Inventari__ID_Pr__5441852A">
           <End Role="Productos_Proveedor" Type="Self.Productos_Proveedor" Multiplicity="0..1" />
           <End Role="Inventario_Sede" Type="Self.Inventario_Sede" Multiplicity="*" />
           <ReferentialConstraint>
@@ -428,7 +593,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Inventari__ID_Se__534D60F1">
+        <Association Name="FK__Inventari__ID_Se__52593CB8">
           <End Role="Sede" Type="Self.Sede" Multiplicity="0..1" />
           <End Role="Inventario_Sede" Type="Self.Inventario_Sede" Multiplicity="*" />
           <ReferentialConstraint>
@@ -440,7 +605,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Mascota__ID_Prop__440B1D61">
+        <Association Name="FK__Mascota__ID_Prop__4316F928">
           <End Role="Propietario" Type="Self.Propietario" Multiplicity="0..1" />
           <End Role="Mascota" Type="Self.Mascota" Multiplicity="*" />
           <ReferentialConstraint>
@@ -452,7 +617,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Mascota__ID_Raza__4316F928">
+        <Association Name="FK__Mascota__ID_Raza__4222D4EF">
           <End Role="Raza" Type="Self.Raza" Multiplicity="0..1" />
           <End Role="Mascota" Type="Self.Mascota" Multiplicity="*" />
           <ReferentialConstraint>
@@ -464,7 +629,91 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Productos__ID_Pr__4E88ABD4">
+        <Association Name="FK__OrdenesCo__IdEst__25518C17">
+          <End Role="EstadosOrdenCompra" Type="Self.EstadosOrdenCompra" Multiplicity="0..1" />
+          <End Role="OrdenesCompra" Type="Self.OrdenesCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstadosOrdenCompra">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="OrdenesCompra">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrdenesCo__IdMet__2645B050">
+          <End Role="MetodoPago" Type="Self.MetodoPago" Multiplicity="0..1" />
+          <End Role="OrdenesCompra" Type="Self.OrdenesCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MetodoPago">
+              <PropertyRef Name="IdMetodoPago" />
+            </Principal>
+            <Dependent Role="OrdenesCompra">
+              <PropertyRef Name="IdMetodoPago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrdenesCo__IdPro__245D67DE">
+          <End Role="Proveedores" Type="Self.Proveedores" Multiplicity="0..1" />
+          <End Role="OrdenesCompra" Type="Self.OrdenesCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedores">
+              <PropertyRef Name="NIT" />
+            </Principal>
+            <Dependent Role="OrdenesCompra">
+              <PropertyRef Name="IdProveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrdenesCo__Orden__2A164134">
+          <End Role="OrdenesCompra" Type="Self.OrdenesCompra" Multiplicity="0..1" />
+          <End Role="OrdenesCompraDetalle" Type="Self.OrdenesCompraDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrdenesCompra">
+              <PropertyRef Name="IdCompra" />
+            </Principal>
+            <Dependent Role="OrdenesCompraDetalle">
+              <PropertyRef Name="OrdenCompraID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescripc__Id_Me__17036CC0">
+          <End Role="Productos_Farmacia" Type="Self.Productos_Farmacia" Multiplicity="1" />
+          <End Role="Prescripcion" Type="Self.Prescripcion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Productos_Farmacia">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Prescripcion">
+              <PropertyRef Name="Id_Medicamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescripc__Id_Me__17F790F9">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="Prescripcion" Type="Self.Prescripcion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Prescripcion">
+              <PropertyRef Name="Id_Medico" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescripc__Id_Pa__160F4887">
+          <End Role="Mascota" Type="Self.Mascota" Multiplicity="1" />
+          <End Role="Prescripcion" Type="Self.Prescripcion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mascota">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Prescripcion">
+              <PropertyRef Name="Id_Paciente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Productos__ID_Pr__4D94879B">
           <End Role="Proveedores" Type="Self.Proveedores" Multiplicity="0..1" />
           <End Role="Productos_Proveedor" Type="Self.Productos_Proveedor" Multiplicity="*" />
           <ReferentialConstraint>
@@ -476,7 +725,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Raza__ID_Especie__3E52440B">
+        <Association Name="FK__Raza__ID_Especie__3D5E1FD2">
           <End Role="Especie" Type="Self.Especie" Multiplicity="0..1" />
           <End Role="Raza" Type="Self.Raza" Multiplicity="*" />
           <ReferentialConstraint>
@@ -488,7 +737,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sede__ID_Ciudad__398D8EEE">
+        <Association Name="FK__Sede__ID_Ciudad__38996AB5">
           <End Role="Ciudad" Type="Self.Ciudad" Multiplicity="0..1" />
           <End Role="Sede" Type="Self.Sede" Multiplicity="*" />
           <ReferentialConstraint>
@@ -501,6 +750,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="dbVeterinariaModelStoreContainer">
+          <EntitySet Name="AtencionServicioAdicional" EntityType="Self.AtencionServicioAdicional" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cama" EntityType="Self.Cama" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cirugia" EntityType="Self.Cirugia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cita" EntityType="Self.Cita" Schema="dbo" store:Type="Tables" />
@@ -509,124 +759,186 @@
           <EntitySet Name="Detalle_Factura" EntityType="Self.Detalle_Factura" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Especie" EntityType="Self.Especie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EstadosOrdenCompra" EntityType="Self.EstadosOrdenCompra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Factura" EntityType="Self.Factura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HistorialCompra" EntityType="Self.HistorialCompra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Hospitalizacion" EntityType="Self.Hospitalizacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Inventario_Sede" EntityType="Self.Inventario_Sede" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InventarioFarmacia" EntityType="Self.InventarioFarmacia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Mascota" EntityType="Self.Mascota" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MetodoPago" EntityType="Self.MetodoPago" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrdenesCompra" EntityType="Self.OrdenesCompra" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrdenesCompraDetalle" EntityType="Self.OrdenesCompraDetalle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Prescripcion" EntityType="Self.Prescripcion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Productos_Farmacia" EntityType="Self.Productos_Farmacia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Productos_Proveedor" EntityType="Self.Productos_Proveedor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Propietario" EntityType="Self.Propietario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Proveedores" EntityType="Self.Proveedores" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Raza" EntityType="Self.Raza" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sede" EntityType="Self.Sede" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Servicios_Adicionales" EntityType="Self.Servicios_Adicionales" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Cama__ID_Sede__49C3F6B7" Association="Self.FK__Cama__ID_Sede__49C3F6B7">
+          <EntitySet Name="ServiciosAdicionales" EntityType="Self.ServiciosAdicionales" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__AtencionS__IdEmp__3864608B" Association="Self.FK__AtencionS__IdEmp__3864608B">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="AtencionServicioAdicional" EntitySet="AtencionServicioAdicional" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AtencionS__IdMas__367C1819" Association="Self.FK__AtencionS__IdMas__367C1819">
+            <End Role="Mascota" EntitySet="Mascota" />
+            <End Role="AtencionServicioAdicional" EntitySet="AtencionServicioAdicional" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AtencionS__IdSer__37703C52" Association="Self.FK__AtencionS__IdSer__37703C52">
+            <End Role="ServiciosAdicionales" EntitySet="ServiciosAdicionales" />
+            <End Role="AtencionServicioAdicional" EntitySet="AtencionServicioAdicional" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cama__ID_Sede__48CFD27E" Association="Self.FK__Cama__ID_Sede__48CFD27E">
             <End Role="Sede" EntitySet="Sede" />
             <End Role="Cama" EntitySet="Cama" />
           </AssociationSet>
-          <AssociationSet Name="FK__Cirugia__ID_Empl__59FA5E80" Association="Self.FK__Cirugia__ID_Empl__59FA5E80">
+          <AssociationSet Name="FK__Cirugia__ID_Empl__59063A47" Association="Self.FK__Cirugia__ID_Empl__59063A47">
             <End Role="Empleado" EntitySet="Empleado" />
             <End Role="Cirugia" EntitySet="Cirugia" />
           </AssociationSet>
-          <AssociationSet Name="FK__Cirugia__ID_Masc__5812160E" Association="Self.FK__Cirugia__ID_Masc__5812160E">
+          <AssociationSet Name="FK__Cirugia__ID_Masc__571DF1D5" Association="Self.FK__Cirugia__ID_Masc__571DF1D5">
             <End Role="Mascota" EntitySet="Mascota" />
             <End Role="Cirugia" EntitySet="Cirugia" />
           </AssociationSet>
-          <AssociationSet Name="FK__Cirugia__ID_Prod__59063A47" Association="Self.FK__Cirugia__ID_Prod__59063A47">
+          <AssociationSet Name="FK__Cirugia__ID_Prod__5812160E" Association="Self.FK__Cirugia__ID_Prod__5812160E">
             <End Role="Productos_Proveedor" EntitySet="Productos_Proveedor" />
             <End Role="Cirugia" EntitySet="Cirugia" />
           </AssociationSet>
-          <AssociationSet Name="FK__Cirugia__ID_Sede__5AEE82B9" Association="Self.FK__Cirugia__ID_Sede__5AEE82B9">
+          <AssociationSet Name="FK__Cirugia__ID_Sede__59FA5E80" Association="Self.FK__Cirugia__ID_Sede__59FA5E80">
             <End Role="Sede" EntitySet="Sede" />
             <End Role="Cirugia" EntitySet="Cirugia" />
           </AssociationSet>
-          <AssociationSet Name="FK__Cita__ID_Emplead__6383C8BA" Association="Self.FK__Cita__ID_Emplead__6383C8BA">
+          <AssociationSet Name="FK__Cita__ID_Emplead__628FA481" Association="Self.FK__Cita__ID_Emplead__628FA481">
             <End Role="Empleado" EntitySet="Empleado" />
             <End Role="Cita" EntitySet="Cita" />
           </AssociationSet>
-          <AssociationSet Name="FK__Cita__ID_Mascota__628FA481" Association="Self.FK__Cita__ID_Mascota__628FA481">
+          <AssociationSet Name="FK__Cita__ID_Mascota__619B8048" Association="Self.FK__Cita__ID_Mascota__619B8048">
             <End Role="Mascota" EntitySet="Mascota" />
             <End Role="Cita" EntitySet="Cita" />
           </AssociationSet>
-          <AssociationSet Name="FK__Cita__ID_Sede__6477ECF3" Association="Self.FK__Cita__ID_Sede__6477ECF3">
+          <AssociationSet Name="FK__Cita__ID_Sede__6383C8BA" Association="Self.FK__Cita__ID_Sede__6383C8BA">
             <End Role="Sede" EntitySet="Sede" />
             <End Role="Cita" EntitySet="Cita" />
           </AssociationSet>
-          <AssociationSet Name="FK__Compra__ID_Produ__71D1E811" Association="Self.FK__Compra__ID_Produ__71D1E811">
+          <AssociationSet Name="FK__Compra__ID_Produ__70DDC3D8" Association="Self.FK__Compra__ID_Produ__70DDC3D8">
             <End Role="Productos_Proveedor" EntitySet="Productos_Proveedor" />
             <End Role="Compra" EntitySet="Compra" />
           </AssociationSet>
-          <AssociationSet Name="FK__Detalle_F__ID_Ci__6B24EA82" Association="Self.FK__Detalle_F__ID_Ci__6B24EA82">
+          <AssociationSet Name="FK__Detalle_F__ID_Ci__6A30C649" Association="Self.FK__Detalle_F__ID_Ci__6A30C649">
             <End Role="Cirugia" EntitySet="Cirugia" />
             <End Role="Detalle_Factura" EntitySet="Detalle_Factura" />
           </AssociationSet>
-          <AssociationSet Name="FK__Detalle_F__ID_Fa__6A30C649" Association="Self.FK__Detalle_F__ID_Fa__6A30C649">
+          <AssociationSet Name="FK__Detalle_F__ID_Fa__693CA210" Association="Self.FK__Detalle_F__ID_Fa__693CA210">
             <End Role="Factura" EntitySet="Factura" />
             <End Role="Detalle_Factura" EntitySet="Detalle_Factura" />
           </AssociationSet>
-          <AssociationSet Name="FK__Detalle_F__ID_Ho__6C190EBB" Association="Self.FK__Detalle_F__ID_Ho__6C190EBB">
+          <AssociationSet Name="FK__Detalle_F__ID_Ho__6B24EA82" Association="Self.FK__Detalle_F__ID_Ho__6B24EA82">
             <End Role="Hospitalizacion" EntitySet="Hospitalizacion" />
             <End Role="Detalle_Factura" EntitySet="Detalle_Factura" />
           </AssociationSet>
-          <AssociationSet Name="FK__Detalle_F__ID_Pr__6D0D32F4" Association="Self.FK__Detalle_F__ID_Pr__6D0D32F4">
+          <AssociationSet Name="FK__Detalle_F__ID_Pr__6C190EBB" Association="Self.FK__Detalle_F__ID_Pr__6C190EBB">
             <End Role="Productos_Farmacia" EntitySet="Productos_Farmacia" />
             <End Role="Detalle_Factura" EntitySet="Detalle_Factura" />
           </AssociationSet>
-          <AssociationSet Name="FK__Empleado__ID_Sed__46E78A0C" Association="Self.FK__Empleado__ID_Sed__46E78A0C">
+          <AssociationSet Name="FK__Detalle_F__ID_Se__3A4CA8FD" Association="Self.FK__Detalle_F__ID_Se__3A4CA8FD">
+            <End Role="ServiciosAdicionales" EntitySet="ServiciosAdicionales" />
+            <End Role="Detalle_Factura" EntitySet="Detalle_Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Empleado__ID_Sed__45F365D3" Association="Self.FK__Empleado__ID_Sed__45F365D3">
             <End Role="Sede" EntitySet="Sede" />
             <End Role="Empleado" EntitySet="Empleado" />
           </AssociationSet>
-          <AssociationSet Name="FK__Factura__ID_Clie__6754599E" Association="Self.FK__Factura__ID_Clie__6754599E">
+          <AssociationSet Name="FK__Factura__ID_Clie__66603565" Association="Self.FK__Factura__ID_Clie__66603565">
             <End Role="Propietario" EntitySet="Propietario" />
             <End Role="Factura" EntitySet="Factura" />
           </AssociationSet>
-          <AssociationSet Name="FK__Hospitali__ID_Ca__5FB337D6" Association="Self.FK__Hospitali__ID_Ca__5FB337D6">
+          <AssociationSet Name="FK__Historial__Orden__30C33EC3" Association="Self.FK__Historial__Orden__30C33EC3">
+            <End Role="OrdenesCompra" EntitySet="OrdenesCompra" />
+            <End Role="HistorialCompra" EntitySet="HistorialCompra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Hospitali__ID_Ca__5EBF139D" Association="Self.FK__Hospitali__ID_Ca__5EBF139D">
             <End Role="Cama" EntitySet="Cama" />
             <End Role="Hospitalizacion" EntitySet="Hospitalizacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Hospitali__ID_Ma__5DCAEF64" Association="Self.FK__Hospitali__ID_Ma__5DCAEF64">
+          <AssociationSet Name="FK__Hospitali__ID_Ma__5CD6CB2B" Association="Self.FK__Hospitali__ID_Ma__5CD6CB2B">
             <End Role="Mascota" EntitySet="Mascota" />
             <End Role="Hospitalizacion" EntitySet="Hospitalizacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Hospitali__ID_Pr__5EBF139D" Association="Self.FK__Hospitali__ID_Pr__5EBF139D">
+          <AssociationSet Name="FK__Hospitali__ID_Pr__5DCAEF64" Association="Self.FK__Hospitali__ID_Pr__5DCAEF64">
             <End Role="Productos_Farmacia" EntitySet="Productos_Farmacia" />
             <End Role="Hospitalizacion" EntitySet="Hospitalizacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Inventari__ID_Pr__5441852A" Association="Self.FK__Inventari__ID_Pr__5441852A">
+          <AssociationSet Name="FK__Inventari__Id_In__1BC821DD" Association="Self.FK__Inventari__Id_In__1BC821DD">
+            <End Role="InventarioFarmacia" EntitySet="InventarioFarmacia" />
+            <End Role="Inventario_Sede" EntitySet="Inventario_Sede" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Inventari__Id_Me__1AD3FDA4" Association="Self.FK__Inventari__Id_Me__1AD3FDA4">
+            <End Role="Productos_Farmacia" EntitySet="Productos_Farmacia" />
+            <End Role="InventarioFarmacia" EntitySet="InventarioFarmacia" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Inventari__ID_Pr__534D60F1" Association="Self.FK__Inventari__ID_Pr__534D60F1">
             <End Role="Productos_Farmacia" EntitySet="Productos_Farmacia" />
             <End Role="Inventario_Sede" EntitySet="Inventario_Sede" />
           </AssociationSet>
-          <AssociationSet Name="FK__Inventari__ID_Pr__5535A963" Association="Self.FK__Inventari__ID_Pr__5535A963">
+          <AssociationSet Name="FK__Inventari__ID_Pr__5441852A" Association="Self.FK__Inventari__ID_Pr__5441852A">
             <End Role="Productos_Proveedor" EntitySet="Productos_Proveedor" />
             <End Role="Inventario_Sede" EntitySet="Inventario_Sede" />
           </AssociationSet>
-          <AssociationSet Name="FK__Inventari__ID_Se__534D60F1" Association="Self.FK__Inventari__ID_Se__534D60F1">
+          <AssociationSet Name="FK__Inventari__ID_Se__52593CB8" Association="Self.FK__Inventari__ID_Se__52593CB8">
             <End Role="Sede" EntitySet="Sede" />
             <End Role="Inventario_Sede" EntitySet="Inventario_Sede" />
           </AssociationSet>
-          <AssociationSet Name="FK__Mascota__ID_Prop__440B1D61" Association="Self.FK__Mascota__ID_Prop__440B1D61">
+          <AssociationSet Name="FK__Mascota__ID_Prop__4316F928" Association="Self.FK__Mascota__ID_Prop__4316F928">
             <End Role="Propietario" EntitySet="Propietario" />
             <End Role="Mascota" EntitySet="Mascota" />
           </AssociationSet>
-          <AssociationSet Name="FK__Mascota__ID_Raza__4316F928" Association="Self.FK__Mascota__ID_Raza__4316F928">
+          <AssociationSet Name="FK__Mascota__ID_Raza__4222D4EF" Association="Self.FK__Mascota__ID_Raza__4222D4EF">
             <End Role="Raza" EntitySet="Raza" />
             <End Role="Mascota" EntitySet="Mascota" />
           </AssociationSet>
-          <AssociationSet Name="FK__Productos__ID_Pr__4E88ABD4" Association="Self.FK__Productos__ID_Pr__4E88ABD4">
+          <AssociationSet Name="FK__OrdenesCo__IdEst__25518C17" Association="Self.FK__OrdenesCo__IdEst__25518C17">
+            <End Role="EstadosOrdenCompra" EntitySet="EstadosOrdenCompra" />
+            <End Role="OrdenesCompra" EntitySet="OrdenesCompra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrdenesCo__IdMet__2645B050" Association="Self.FK__OrdenesCo__IdMet__2645B050">
+            <End Role="MetodoPago" EntitySet="MetodoPago" />
+            <End Role="OrdenesCompra" EntitySet="OrdenesCompra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrdenesCo__IdPro__245D67DE" Association="Self.FK__OrdenesCo__IdPro__245D67DE">
+            <End Role="Proveedores" EntitySet="Proveedores" />
+            <End Role="OrdenesCompra" EntitySet="OrdenesCompra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrdenesCo__Orden__2A164134" Association="Self.FK__OrdenesCo__Orden__2A164134">
+            <End Role="OrdenesCompra" EntitySet="OrdenesCompra" />
+            <End Role="OrdenesCompraDetalle" EntitySet="OrdenesCompraDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescripc__Id_Me__17036CC0" Association="Self.FK__Prescripc__Id_Me__17036CC0">
+            <End Role="Productos_Farmacia" EntitySet="Productos_Farmacia" />
+            <End Role="Prescripcion" EntitySet="Prescripcion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescripc__Id_Me__17F790F9" Association="Self.FK__Prescripc__Id_Me__17F790F9">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Prescripcion" EntitySet="Prescripcion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescripc__Id_Pa__160F4887" Association="Self.FK__Prescripc__Id_Pa__160F4887">
+            <End Role="Mascota" EntitySet="Mascota" />
+            <End Role="Prescripcion" EntitySet="Prescripcion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Productos__ID_Pr__4D94879B" Association="Self.FK__Productos__ID_Pr__4D94879B">
             <End Role="Proveedores" EntitySet="Proveedores" />
             <End Role="Productos_Proveedor" EntitySet="Productos_Proveedor" />
           </AssociationSet>
-          <AssociationSet Name="FK__Raza__ID_Especie__3E52440B" Association="Self.FK__Raza__ID_Especie__3E52440B">
+          <AssociationSet Name="FK__Raza__ID_Especie__3D5E1FD2" Association="Self.FK__Raza__ID_Especie__3D5E1FD2">
             <End Role="Especie" EntitySet="Especie" />
             <End Role="Raza" EntitySet="Raza" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sede__ID_Ciudad__398D8EEE" Association="Self.FK__Sede__ID_Ciudad__398D8EEE">
+          <AssociationSet Name="FK__Sede__ID_Ciudad__38996AB5" Association="Self.FK__Sede__ID_Ciudad__38996AB5">
             <End Role="Ciudad" EntitySet="Ciudad" />
             <End Role="Sede" EntitySet="Sede" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dbVeterinariaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -704,6 +1016,8 @@
           <NavigationProperty Name="Factura" Relationship="Self.FK__Detalle_F__ID_Fa__6A30C649" FromRole="Detalle_Factura" ToRole="Factura" />
           <NavigationProperty Name="Hospitalizacion" Relationship="Self.FK__Detalle_F__ID_Ho__6C190EBB" FromRole="Detalle_Factura" ToRole="Hospitalizacion" />
           <NavigationProperty Name="Productos_Farmacia" Relationship="Self.FK__Detalle_F__ID_Pr__6D0D32F4" FromRole="Detalle_Factura" ToRole="Productos_Farmacia" />
+          <Property Name="ID_ServicioAdicional" Type="Int32" />
+          <NavigationProperty Name="ServiciosAdicionale" Relationship="dbVeterinariaModel.FK__Detalle_F__ID_Se__3A4CA8FD" FromRole="Detalle_Factura" ToRole="ServiciosAdicionale" />
         </EntityType>
         <EntityType Name="Empleado">
           <Key>
@@ -717,6 +1031,8 @@
           <NavigationProperty Name="Cirugias" Relationship="Self.FK__Cirugia__ID_Empl__59FA5E80" FromRole="Empleado" ToRole="Cirugia" />
           <NavigationProperty Name="Citas" Relationship="Self.FK__Cita__ID_Emplead__6383C8BA" FromRole="Empleado" ToRole="Cita" />
           <NavigationProperty Name="Sede" Relationship="Self.FK__Empleado__ID_Sed__46E78A0C" FromRole="Empleado" ToRole="Sede" />
+          <NavigationProperty Name="AtencionServicioAdicionals" Relationship="dbVeterinariaModel.FK__AtencionS__IdEmp__3864608B" FromRole="Empleado" ToRole="AtencionServicioAdicional" />
+          <NavigationProperty Name="Prescripcions" Relationship="dbVeterinariaModel.FK__Prescripc__Id_Me__17F790F9" FromRole="Empleado" ToRole="Prescripcion" />
         </EntityType>
         <EntityType Name="Especie">
           <Key>
@@ -765,6 +1081,8 @@
           <NavigationProperty Name="Productos_Farmacia" Relationship="Self.FK__Inventari__ID_Pr__5441852A" FromRole="Inventario_Sede" ToRole="Productos_Farmacia" />
           <NavigationProperty Name="Productos_Proveedor" Relationship="Self.FK__Inventari__ID_Pr__5535A963" FromRole="Inventario_Sede" ToRole="Productos_Proveedor" />
           <NavigationProperty Name="Sede" Relationship="Self.FK__Inventari__ID_Se__534D60F1" FromRole="Inventario_Sede" ToRole="Sede" />
+          <Property Name="Id_Inventario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="InventarioFarmacia" Relationship="dbVeterinariaModel.FK__Inventari__Id_In__1BC821DD" FromRole="Inventario_Sede" ToRole="InventarioFarmacia" />
         </EntityType>
         <EntityType Name="Mascota">
           <Key>
@@ -781,6 +1099,8 @@
           <NavigationProperty Name="Hospitalizacions" Relationship="Self.FK__Hospitali__ID_Ma__5DCAEF64" FromRole="Mascota" ToRole="Hospitalizacion" />
           <NavigationProperty Name="Propietario" Relationship="Self.FK__Mascota__ID_Prop__440B1D61" FromRole="Mascota" ToRole="Propietario" />
           <NavigationProperty Name="Raza" Relationship="Self.FK__Mascota__ID_Raza__4316F928" FromRole="Mascota" ToRole="Raza" />
+          <NavigationProperty Name="AtencionServicioAdicionals" Relationship="dbVeterinariaModel.FK__AtencionS__IdMas__367C1819" FromRole="Mascota" ToRole="AtencionServicioAdicional" />
+          <NavigationProperty Name="Prescripcions" Relationship="dbVeterinariaModel.FK__Prescripc__Id_Pa__160F4887" FromRole="Mascota" ToRole="Prescripcion" />
         </EntityType>
         <EntityType Name="Productos_Farmacia">
           <Key>
@@ -794,6 +1114,8 @@
           <NavigationProperty Name="Detalle_Factura" Relationship="Self.FK__Detalle_F__ID_Pr__6D0D32F4" FromRole="Productos_Farmacia" ToRole="Detalle_Factura" />
           <NavigationProperty Name="Hospitalizacions" Relationship="Self.FK__Hospitali__ID_Pr__5EBF139D" FromRole="Productos_Farmacia" ToRole="Hospitalizacion" />
           <NavigationProperty Name="Inventario_Sede" Relationship="Self.FK__Inventari__ID_Pr__5441852A" FromRole="Productos_Farmacia" ToRole="Inventario_Sede" />
+          <NavigationProperty Name="InventarioFarmacias" Relationship="dbVeterinariaModel.FK__Inventari__Id_Me__1AD3FDA4" FromRole="Productos_Farmacia" ToRole="InventarioFarmacia" />
+          <NavigationProperty Name="Prescripcions" Relationship="dbVeterinariaModel.FK__Prescripc__Id_Me__17036CC0" FromRole="Productos_Farmacia" ToRole="Prescripcion" />
         </EntityType>
         <EntityType Name="Productos_Proveedor">
           <Key>
@@ -830,6 +1152,7 @@
           <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Direccion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Productos_Proveedor" Relationship="Self.FK__Productos__ID_Pr__4E88ABD4" FromRole="Proveedores" ToRole="Productos_Proveedor" />
+          <NavigationProperty Name="OrdenesCompras" Relationship="dbVeterinariaModel.FK__OrdenesCo__IdPro__245D67DE" FromRole="Proveedore" ToRole="OrdenesCompra" />
         </EntityType>
         <EntityType Name="Raza">
           <Key>
@@ -856,14 +1179,6 @@
           <NavigationProperty Name="Ciudad" Relationship="Self.FK__Sede__ID_Ciudad__398D8EEE" FromRole="Sede" ToRole="Ciudad" />
           <NavigationProperty Name="Empleadoes" Relationship="Self.FK__Empleado__ID_Sed__46E78A0C" FromRole="Sede" ToRole="Empleado" />
           <NavigationProperty Name="Inventario_Sede" Relationship="Self.FK__Inventari__ID_Se__534D60F1" FromRole="Sede" ToRole="Inventario_Sede" />
-        </EntityType>
-        <EntityType Name="Servicios_Adicionales">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Costo" Type="Decimal" Precision="10" Scale="2" />
         </EntityType>
         <Association Name="FK__Cama__ID_Sede__49C3F6B7">
           <End Role="Sede" Type="Self.Sede" Multiplicity="0..1" />
@@ -1196,7 +1511,6 @@
           <EntitySet Name="Proveedores" EntityType="Self.Proveedore" />
           <EntitySet Name="Razas" EntityType="Self.Raza" />
           <EntitySet Name="Sedes" EntityType="Self.Sede" />
-          <EntitySet Name="Servicios_Adicionales" EntityType="Self.Servicios_Adicionales" />
           <AssociationSet Name="FK__Cama__ID_Sede__49C3F6B7" Association="Self.FK__Cama__ID_Sede__49C3F6B7">
             <End Role="Sede" EntitySet="Sedes" />
             <End Role="Cama" EntitySet="Camas" />
@@ -1301,7 +1615,346 @@
             <End Role="Proveedores" EntitySet="Proveedores" />
             <End Role="Productos_Proveedor" EntitySet="Productos_Proveedor" />
           </AssociationSet>
+          <EntitySet Name="AtencionServicioAdicionals" EntityType="dbVeterinariaModel.AtencionServicioAdicional" />
+          <EntitySet Name="EstadosOrdenCompras" EntityType="dbVeterinariaModel.EstadosOrdenCompra" />
+          <EntitySet Name="HistorialCompras" EntityType="dbVeterinariaModel.HistorialCompra" />
+          <EntitySet Name="InventarioFarmacias" EntityType="dbVeterinariaModel.InventarioFarmacia" />
+          <EntitySet Name="MetodoPagoes" EntityType="dbVeterinariaModel.MetodoPago" />
+          <EntitySet Name="OrdenesCompras" EntityType="dbVeterinariaModel.OrdenesCompra" />
+          <EntitySet Name="OrdenesCompraDetalles" EntityType="dbVeterinariaModel.OrdenesCompraDetalle" />
+          <EntitySet Name="Prescripcions" EntityType="dbVeterinariaModel.Prescripcion" />
+          <EntitySet Name="ServiciosAdicionales" EntityType="dbVeterinariaModel.ServiciosAdicionale" />
+          <AssociationSet Name="FK__AtencionS__IdEmp__3864608B" Association="dbVeterinariaModel.FK__AtencionS__IdEmp__3864608B">
+            <End Role="Empleado" EntitySet="Empleadoes" />
+            <End Role="AtencionServicioAdicional" EntitySet="AtencionServicioAdicionals" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AtencionS__IdMas__367C1819" Association="dbVeterinariaModel.FK__AtencionS__IdMas__367C1819">
+            <End Role="Mascota" EntitySet="Mascotas" />
+            <End Role="AtencionServicioAdicional" EntitySet="AtencionServicioAdicionals" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AtencionS__IdSer__37703C52" Association="dbVeterinariaModel.FK__AtencionS__IdSer__37703C52">
+            <End Role="ServiciosAdicionale" EntitySet="ServiciosAdicionales" />
+            <End Role="AtencionServicioAdicional" EntitySet="AtencionServicioAdicionals" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Detalle_F__ID_Se__3A4CA8FD" Association="dbVeterinariaModel.FK__Detalle_F__ID_Se__3A4CA8FD">
+            <End Role="ServiciosAdicionale" EntitySet="ServiciosAdicionales" />
+            <End Role="Detalle_Factura" EntitySet="Detalle_Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescripc__Id_Me__17F790F9" Association="dbVeterinariaModel.FK__Prescripc__Id_Me__17F790F9">
+            <End Role="Empleado" EntitySet="Empleadoes" />
+            <End Role="Prescripcion" EntitySet="Prescripcions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrdenesCo__IdEst__25518C17" Association="dbVeterinariaModel.FK__OrdenesCo__IdEst__25518C17">
+            <End Role="EstadosOrdenCompra" EntitySet="EstadosOrdenCompras" />
+            <End Role="OrdenesCompra" EntitySet="OrdenesCompras" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historial__Orden__30C33EC3" Association="dbVeterinariaModel.FK__Historial__Orden__30C33EC3">
+            <End Role="OrdenesCompra" EntitySet="OrdenesCompras" />
+            <End Role="HistorialCompra" EntitySet="HistorialCompras" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Inventari__Id_In__1BC821DD" Association="dbVeterinariaModel.FK__Inventari__Id_In__1BC821DD">
+            <End Role="InventarioFarmacia" EntitySet="InventarioFarmacias" />
+            <End Role="Inventario_Sede" EntitySet="Inventario_Sede" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Inventari__Id_Me__1AD3FDA4" Association="dbVeterinariaModel.FK__Inventari__Id_Me__1AD3FDA4">
+            <End Role="Productos_Farmacia" EntitySet="Productos_Farmacia" />
+            <End Role="InventarioFarmacia" EntitySet="InventarioFarmacias" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescripc__Id_Pa__160F4887" Association="dbVeterinariaModel.FK__Prescripc__Id_Pa__160F4887">
+            <End Role="Mascota" EntitySet="Mascotas" />
+            <End Role="Prescripcion" EntitySet="Prescripcions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrdenesCo__IdMet__2645B050" Association="dbVeterinariaModel.FK__OrdenesCo__IdMet__2645B050">
+            <End Role="MetodoPago" EntitySet="MetodoPagoes" />
+            <End Role="OrdenesCompra" EntitySet="OrdenesCompras" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrdenesCo__IdPro__245D67DE" Association="dbVeterinariaModel.FK__OrdenesCo__IdPro__245D67DE">
+            <End Role="Proveedore" EntitySet="Proveedores" />
+            <End Role="OrdenesCompra" EntitySet="OrdenesCompras" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrdenesCo__Orden__2A164134" Association="dbVeterinariaModel.FK__OrdenesCo__Orden__2A164134">
+            <End Role="OrdenesCompra" EntitySet="OrdenesCompras" />
+            <End Role="OrdenesCompraDetalle" EntitySet="OrdenesCompraDetalles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescripc__Id_Me__17036CC0" Association="dbVeterinariaModel.FK__Prescripc__Id_Me__17036CC0">
+            <End Role="Productos_Farmacia" EntitySet="Productos_Farmacia" />
+            <End Role="Prescripcion" EntitySet="Prescripcions" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="AtencionServicioAdicional">
+          <Key>
+            <PropertyRef Name="IdAtencion" />
+          </Key>
+          <Property Name="IdAtencion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdMascota" Type="Int32" />
+          <Property Name="IdServicio" Type="Int32" />
+          <Property Name="IdEmpleado" Type="Int32" />
+          <Property Name="FechaAtencion" Type="DateTime" Precision="3" />
+          <Property Name="Observaciones" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Empleado" Relationship="dbVeterinariaModel.FK__AtencionS__IdEmp__3864608B" FromRole="AtencionServicioAdicional" ToRole="Empleado" />
+          <NavigationProperty Name="Mascota" Relationship="dbVeterinariaModel.FK__AtencionS__IdMas__367C1819" FromRole="AtencionServicioAdicional" ToRole="Mascota" />
+          <NavigationProperty Name="ServiciosAdicionale" Relationship="dbVeterinariaModel.FK__AtencionS__IdSer__37703C52" FromRole="AtencionServicioAdicional" ToRole="ServiciosAdicionale" />
+        </EntityType>
+        <EntityType Name="EstadosOrdenCompra">
+          <Key>
+            <PropertyRef Name="IdEstado" />
+          </Key>
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <Property Name="NombreEstado" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OrdenesCompras" Relationship="dbVeterinariaModel.FK__OrdenesCo__IdEst__25518C17" FromRole="EstadosOrdenCompra" ToRole="OrdenesCompra" />
+        </EntityType>
+        <EntityType Name="HistorialCompra">
+          <Key>
+            <PropertyRef Name="EntregaID" />
+          </Key>
+          <Property Name="EntregaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrdenCompraID" Type="Int32" />
+          <Property Name="FechaEntrega" Type="DateTime" Precision="3" />
+          <Property Name="Observaciones" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OrdenesCompra" Relationship="dbVeterinariaModel.FK__Historial__Orden__30C33EC3" FromRole="HistorialCompra" ToRole="OrdenesCompra" />
+        </EntityType>
+        <EntityType Name="InventarioFarmacia">
+          <Key>
+            <PropertyRef Name="Id_Inventario" />
+          </Key>
+          <Property Name="Id_Inventario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Medicamento" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Unidad_Medida" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Inventario_Sede" Relationship="dbVeterinariaModel.FK__Inventari__Id_In__1BC821DD" FromRole="InventarioFarmacia" ToRole="Inventario_Sede" />
+          <NavigationProperty Name="Productos_Farmacia" Relationship="dbVeterinariaModel.FK__Inventari__Id_Me__1AD3FDA4" FromRole="InventarioFarmacia" ToRole="Productos_Farmacia" />
+        </EntityType>
+        <EntityType Name="MetodoPago">
+          <Key>
+            <PropertyRef Name="IdMetodoPago" />
+          </Key>
+          <Property Name="IdMetodoPago" Type="Int32" Nullable="false" />
+          <Property Name="NombreMetodo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OrdenesCompras" Relationship="dbVeterinariaModel.FK__OrdenesCo__IdMet__2645B050" FromRole="MetodoPago" ToRole="OrdenesCompra" />
+        </EntityType>
+        <EntityType Name="OrdenesCompra">
+          <Key>
+            <PropertyRef Name="IdCompra" />
+          </Key>
+          <Property Name="IdCompra" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdProveedor" Type="Int32" />
+          <Property Name="IdEstado" Type="Int32" />
+          <Property Name="IdMetodoPago" Type="Int32" />
+          <Property Name="FechaOrden" Type="DateTime" Precision="3" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="EstadosOrdenCompra" Relationship="dbVeterinariaModel.FK__OrdenesCo__IdEst__25518C17" FromRole="OrdenesCompra" ToRole="EstadosOrdenCompra" />
+          <NavigationProperty Name="HistorialCompras" Relationship="dbVeterinariaModel.FK__Historial__Orden__30C33EC3" FromRole="OrdenesCompra" ToRole="HistorialCompra" />
+          <NavigationProperty Name="MetodoPago" Relationship="dbVeterinariaModel.FK__OrdenesCo__IdMet__2645B050" FromRole="OrdenesCompra" ToRole="MetodoPago" />
+          <NavigationProperty Name="Proveedore" Relationship="dbVeterinariaModel.FK__OrdenesCo__IdPro__245D67DE" FromRole="OrdenesCompra" ToRole="Proveedore" />
+          <NavigationProperty Name="OrdenesCompraDetalles" Relationship="dbVeterinariaModel.FK__OrdenesCo__Orden__2A164134" FromRole="OrdenesCompra" ToRole="OrdenesCompraDetalle" />
+        </EntityType>
+        <EntityType Name="OrdenesCompraDetalle">
+          <Key>
+            <PropertyRef Name="OrdenCompraDetalleID" />
+          </Key>
+          <Property Name="OrdenCompraDetalleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrdenCompraID" Type="Int32" />
+          <Property Name="ProductoID" Type="Int32" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="PrecioUnitario" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SubTotal" Type="Decimal" Precision="29" Scale="2" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="OrdenesCompra" Relationship="dbVeterinariaModel.FK__OrdenesCo__Orden__2A164134" FromRole="OrdenesCompraDetalle" ToRole="OrdenesCompra" />
+        </EntityType>
+        <EntityType Name="Prescripcion">
+          <Key>
+            <PropertyRef Name="Id_Prescripcion" />
+          </Key>
+          <Property Name="Id_Prescripcion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Paciente" Type="Int32" Nullable="false" />
+          <Property Name="Id_Medicamento" Type="Int32" Nullable="false" />
+          <Property Name="Id_Medico" Type="Int32" Nullable="false" />
+          <Property Name="Fecha_Prescripcion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Empleado" Relationship="dbVeterinariaModel.FK__Prescripc__Id_Me__17F790F9" FromRole="Prescripcion" ToRole="Empleado" />
+          <NavigationProperty Name="Mascota" Relationship="dbVeterinariaModel.FK__Prescripc__Id_Pa__160F4887" FromRole="Prescripcion" ToRole="Mascota" />
+          <NavigationProperty Name="Productos_Farmacia" Relationship="dbVeterinariaModel.FK__Prescripc__Id_Me__17036CC0" FromRole="Prescripcion" ToRole="Productos_Farmacia" />
+        </EntityType>
+        <EntityType Name="ServiciosAdicionale">
+          <Key>
+            <PropertyRef Name="IdServicio" />
+          </Key>
+          <Property Name="IdServicio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreServicio" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Categoria" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Costo" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Estado" Type="Boolean" />
+          <NavigationProperty Name="AtencionServicioAdicionals" Relationship="dbVeterinariaModel.FK__AtencionS__IdSer__37703C52" FromRole="ServiciosAdicionale" ToRole="AtencionServicioAdicional" />
+          <NavigationProperty Name="Detalle_Factura" Relationship="dbVeterinariaModel.FK__Detalle_F__ID_Se__3A4CA8FD" FromRole="ServiciosAdicionale" ToRole="Detalle_Factura" />
+        </EntityType>
+        <Association Name="FK__AtencionS__IdEmp__3864608B">
+          <End Type="dbVeterinariaModel.Empleado" Role="Empleado" Multiplicity="0..1" />
+          <End Type="dbVeterinariaModel.AtencionServicioAdicional" Role="AtencionServicioAdicional" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AtencionServicioAdicional">
+              <PropertyRef Name="IdEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AtencionS__IdMas__367C1819">
+          <End Type="dbVeterinariaModel.Mascota" Role="Mascota" Multiplicity="0..1" />
+          <End Type="dbVeterinariaModel.AtencionServicioAdicional" Role="AtencionServicioAdicional" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mascota">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AtencionServicioAdicional">
+              <PropertyRef Name="IdMascota" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AtencionS__IdSer__37703C52">
+          <End Type="dbVeterinariaModel.ServiciosAdicionale" Role="ServiciosAdicionale" Multiplicity="0..1" />
+          <End Type="dbVeterinariaModel.AtencionServicioAdicional" Role="AtencionServicioAdicional" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServiciosAdicionale">
+              <PropertyRef Name="IdServicio" />
+            </Principal>
+            <Dependent Role="AtencionServicioAdicional">
+              <PropertyRef Name="IdServicio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Detalle_F__ID_Se__3A4CA8FD">
+          <End Type="dbVeterinariaModel.ServiciosAdicionale" Role="ServiciosAdicionale" Multiplicity="0..1" />
+          <End Type="dbVeterinariaModel.Detalle_Factura" Role="Detalle_Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServiciosAdicionale">
+              <PropertyRef Name="IdServicio" />
+            </Principal>
+            <Dependent Role="Detalle_Factura">
+              <PropertyRef Name="ID_ServicioAdicional" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescripc__Id_Me__17F790F9">
+          <End Type="dbVeterinariaModel.Empleado" Role="Empleado" Multiplicity="1" />
+          <End Type="dbVeterinariaModel.Prescripcion" Role="Prescripcion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Prescripcion">
+              <PropertyRef Name="Id_Medico" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrdenesCo__IdEst__25518C17">
+          <End Type="dbVeterinariaModel.EstadosOrdenCompra" Role="EstadosOrdenCompra" Multiplicity="0..1" />
+          <End Type="dbVeterinariaModel.OrdenesCompra" Role="OrdenesCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstadosOrdenCompra">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="OrdenesCompra">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historial__Orden__30C33EC3">
+          <End Type="dbVeterinariaModel.OrdenesCompra" Role="OrdenesCompra" Multiplicity="0..1" />
+          <End Type="dbVeterinariaModel.HistorialCompra" Role="HistorialCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrdenesCompra">
+              <PropertyRef Name="IdCompra" />
+            </Principal>
+            <Dependent Role="HistorialCompra">
+              <PropertyRef Name="OrdenCompraID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Inventari__Id_In__1BC821DD">
+          <End Type="dbVeterinariaModel.InventarioFarmacia" Role="InventarioFarmacia" Multiplicity="1" />
+          <End Type="dbVeterinariaModel.Inventario_Sede" Role="Inventario_Sede" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InventarioFarmacia">
+              <PropertyRef Name="Id_Inventario" />
+            </Principal>
+            <Dependent Role="Inventario_Sede">
+              <PropertyRef Name="Id_Inventario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Inventari__Id_Me__1AD3FDA4">
+          <End Type="dbVeterinariaModel.Productos_Farmacia" Role="Productos_Farmacia" Multiplicity="1" />
+          <End Type="dbVeterinariaModel.InventarioFarmacia" Role="InventarioFarmacia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Productos_Farmacia">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="InventarioFarmacia">
+              <PropertyRef Name="Id_Medicamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescripc__Id_Pa__160F4887">
+          <End Type="dbVeterinariaModel.Mascota" Role="Mascota" Multiplicity="1" />
+          <End Type="dbVeterinariaModel.Prescripcion" Role="Prescripcion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mascota">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Prescripcion">
+              <PropertyRef Name="Id_Paciente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrdenesCo__IdMet__2645B050">
+          <End Type="dbVeterinariaModel.MetodoPago" Role="MetodoPago" Multiplicity="0..1" />
+          <End Type="dbVeterinariaModel.OrdenesCompra" Role="OrdenesCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MetodoPago">
+              <PropertyRef Name="IdMetodoPago" />
+            </Principal>
+            <Dependent Role="OrdenesCompra">
+              <PropertyRef Name="IdMetodoPago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrdenesCo__IdPro__245D67DE">
+          <End Type="dbVeterinariaModel.Proveedore" Role="Proveedore" Multiplicity="0..1" />
+          <End Type="dbVeterinariaModel.OrdenesCompra" Role="OrdenesCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedore">
+              <PropertyRef Name="NIT" />
+            </Principal>
+            <Dependent Role="OrdenesCompra">
+              <PropertyRef Name="IdProveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrdenesCo__Orden__2A164134">
+          <End Type="dbVeterinariaModel.OrdenesCompra" Role="OrdenesCompra" Multiplicity="0..1" />
+          <End Type="dbVeterinariaModel.OrdenesCompraDetalle" Role="OrdenesCompraDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrdenesCompra">
+              <PropertyRef Name="IdCompra" />
+            </Principal>
+            <Dependent Role="OrdenesCompraDetalle">
+              <PropertyRef Name="OrdenCompraID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescripc__Id_Me__17036CC0">
+          <End Type="dbVeterinariaModel.Productos_Farmacia" Role="Productos_Farmacia" Multiplicity="1" />
+          <End Type="dbVeterinariaModel.Prescripcion" Role="Prescripcion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Productos_Farmacia">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Prescripcion">
+              <PropertyRef Name="Id_Medicamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1364,6 +2017,7 @@
           <EntitySetMapping Name="Detalle_Factura">
             <EntityTypeMapping TypeName="dbVeterinariaModel.Detalle_Factura">
               <MappingFragment StoreEntitySet="Detalle_Factura">
+                <ScalarProperty Name="ID_ServicioAdicional" ColumnName="ID_ServicioAdicional" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ID_Factura" ColumnName="ID_Factura" />
                 <ScalarProperty Name="ID_Cirugia" ColumnName="ID_Cirugia" />
@@ -1418,6 +2072,7 @@
           <EntitySetMapping Name="Inventario_Sede">
             <EntityTypeMapping TypeName="dbVeterinariaModel.Inventario_Sede">
               <MappingFragment StoreEntitySet="Inventario_Sede">
+                <ScalarProperty Name="Id_Inventario" ColumnName="Id_Inventario" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ID_ProductoFamarcia" ColumnName="ID_ProductoFamarcia" />
                 <ScalarProperty Name="ID_ProductoProveedor" ColumnName="ID_ProductoProveedor" />
@@ -1501,12 +2156,99 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Servicios_Adicionales">
-            <EntityTypeMapping TypeName="dbVeterinariaModel.Servicios_Adicionales">
-              <MappingFragment StoreEntitySet="Servicios_Adicionales">
-                <ScalarProperty Name="ID" ColumnName="ID" />
+          <EntitySetMapping Name="AtencionServicioAdicionals">
+            <EntityTypeMapping TypeName="dbVeterinariaModel.AtencionServicioAdicional">
+              <MappingFragment StoreEntitySet="AtencionServicioAdicional">
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+                <ScalarProperty Name="FechaAtencion" ColumnName="FechaAtencion" />
+                <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
+                <ScalarProperty Name="IdServicio" ColumnName="IdServicio" />
+                <ScalarProperty Name="IdMascota" ColumnName="IdMascota" />
+                <ScalarProperty Name="IdAtencion" ColumnName="IdAtencion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EstadosOrdenCompras">
+            <EntityTypeMapping TypeName="dbVeterinariaModel.EstadosOrdenCompra">
+              <MappingFragment StoreEntitySet="EstadosOrdenCompra">
+                <ScalarProperty Name="NombreEstado" ColumnName="NombreEstado" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HistorialCompras">
+            <EntityTypeMapping TypeName="dbVeterinariaModel.HistorialCompra">
+              <MappingFragment StoreEntitySet="HistorialCompra">
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+                <ScalarProperty Name="FechaEntrega" ColumnName="FechaEntrega" />
+                <ScalarProperty Name="OrdenCompraID" ColumnName="OrdenCompraID" />
+                <ScalarProperty Name="EntregaID" ColumnName="EntregaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InventarioFarmacias">
+            <EntityTypeMapping TypeName="dbVeterinariaModel.InventarioFarmacia">
+              <MappingFragment StoreEntitySet="InventarioFarmacia">
+                <ScalarProperty Name="Unidad_Medida" ColumnName="Unidad_Medida" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id_Medicamento" ColumnName="Id_Medicamento" />
+                <ScalarProperty Name="Id_Inventario" ColumnName="Id_Inventario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MetodoPagoes">
+            <EntityTypeMapping TypeName="dbVeterinariaModel.MetodoPago">
+              <MappingFragment StoreEntitySet="MetodoPago">
+                <ScalarProperty Name="NombreMetodo" ColumnName="NombreMetodo" />
+                <ScalarProperty Name="IdMetodoPago" ColumnName="IdMetodoPago" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrdenesCompras">
+            <EntityTypeMapping TypeName="dbVeterinariaModel.OrdenesCompra">
+              <MappingFragment StoreEntitySet="OrdenesCompra">
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="FechaOrden" ColumnName="FechaOrden" />
+                <ScalarProperty Name="IdMetodoPago" ColumnName="IdMetodoPago" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
+                <ScalarProperty Name="IdCompra" ColumnName="IdCompra" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrdenesCompraDetalles">
+            <EntityTypeMapping TypeName="dbVeterinariaModel.OrdenesCompraDetalle">
+              <MappingFragment StoreEntitySet="OrdenesCompraDetalle">
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="PrecioUnitario" ColumnName="PrecioUnitario" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="ProductoID" ColumnName="ProductoID" />
+                <ScalarProperty Name="OrdenCompraID" ColumnName="OrdenCompraID" />
+                <ScalarProperty Name="OrdenCompraDetalleID" ColumnName="OrdenCompraDetalleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Prescripcions">
+            <EntityTypeMapping TypeName="dbVeterinariaModel.Prescripcion">
+              <MappingFragment StoreEntitySet="Prescripcion">
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Fecha_Prescripcion" ColumnName="Fecha_Prescripcion" />
+                <ScalarProperty Name="Id_Medico" ColumnName="Id_Medico" />
+                <ScalarProperty Name="Id_Medicamento" ColumnName="Id_Medicamento" />
+                <ScalarProperty Name="Id_Paciente" ColumnName="Id_Paciente" />
+                <ScalarProperty Name="Id_Prescripcion" ColumnName="Id_Prescripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServiciosAdicionales">
+            <EntityTypeMapping TypeName="dbVeterinariaModel.ServiciosAdicionale">
+              <MappingFragment StoreEntitySet="ServiciosAdicionales">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Costo" ColumnName="Costo" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="NombreServicio" ColumnName="NombreServicio" />
+                <ScalarProperty Name="IdServicio" ColumnName="IdServicio" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

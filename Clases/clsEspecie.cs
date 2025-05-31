@@ -11,7 +11,11 @@ namespace VeterinariaServ.Clases
     {
         private dbVeterinariaEntities dbVeterinaria = new dbVeterinariaEntities();
         public Especie especie { get; set; }
-
+        public clsEspecie()
+        {
+            dbVeterinaria = new dbVeterinariaEntities();
+            dbVeterinaria.Configuration.LazyLoadingEnabled = false;
+        }
 
         public string Insertar()
         {
