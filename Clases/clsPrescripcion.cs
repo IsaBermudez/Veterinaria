@@ -68,7 +68,7 @@ namespace VeterinariaServ.Clases
                 {
                     return "El id de la prescripción no es valido";
                 }
-                dbVeterinaria.Prescripcions.Remove(Prescripcion);
+                dbVeterinaria.Prescripcions.Remove(pre);
                 dbVeterinaria.SaveChanges();
                 return "Se eliminó la prescripción correctamente";
             }

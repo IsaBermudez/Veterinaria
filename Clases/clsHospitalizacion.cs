@@ -45,7 +45,7 @@ namespace VeterinariaServ.Clases
                     return "El ID de la hospitalización no es válida";
                 }
                 dbVeterinaria.Hospitalizacions.AddOrUpdate(hospitalizacion);
-                dbVeterinaria.SaveChanges(); //
+                dbVeterinaria.SaveChanges(); 
                 return "Se actualizó la hospitalización correctamente ";
 
             }
