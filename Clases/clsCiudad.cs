@@ -12,7 +12,11 @@ namespace VeterinariaServ.Clases
         private dbVeterinariaEntities dbVeterinaria = new dbVeterinariaEntities();
         public Ciudad ciudad { get; set; }
 
-
+        public clsCiudad()
+        {
+            dbVeterinaria = new dbVeterinariaEntities();
+            dbVeterinaria.Configuration.LazyLoadingEnabled = false;
+        }
         public string Insertar()
         {
             try

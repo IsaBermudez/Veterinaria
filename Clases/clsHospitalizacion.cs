@@ -10,12 +10,18 @@ namespace VeterinariaServ.Clases
 {
 
 
+    namespace VeterinariaServ.Clases
+    {
     public class clsHospitalizacion
     {
         private dbVeterinariaEntities dbVeterinaria = new dbVeterinariaEntities();
         public Hospitalizacion hospitalizacion { get; set; }
 
-
+            public clsHospitalizacion()
+            {
+                dbVeterinaria = new dbVeterinariaEntities();
+                dbVeterinaria.Configuration.LazyLoadingEnabled = false;
+            }
         public string Insertar()
         {
             try
@@ -99,4 +105,5 @@ namespace VeterinariaServ.Clases
             }
         }
     }
+}
 }

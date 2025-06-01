@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using VeterinariaServ.Clases;
+using VeterinariaServ.Clases.VeterinariaServ.Clases;
 using VeterinariaServ.Models;
 
 
@@ -42,10 +43,10 @@ namespace VeterinariaServ.Controllers
 
         [HttpGet]
         [Route("ConsultarXIDMascota")]
-        public List<Hospitalizacion> ConsultarXIDMascota(int idMascota)
+        public List<Hospitalizacion> ConsultarXIDMascota(int ID)
         {
             clsHospitalizacion hospita = new clsHospitalizacion();
-            return hospita.ConsultarPorMascota(idMascota);
+            return hospita.ConsultarPorMascota(ID);
         }
 
         [HttpGet]

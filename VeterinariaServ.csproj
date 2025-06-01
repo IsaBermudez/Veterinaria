@@ -167,7 +167,12 @@
     <Compile Include="Clases\clsCiudad.cs" />
     <Compile Include="Clases\clsEspecie.cs" />
     <Compile Include="Clases\clsHospitalizacion.cs" />
+    <Compile Include="Clases\clsInventarioFarmacia.cs" />
+    <Compile Include="Clases\clsInventarioSede.cs" />
     <Compile Include="Clases\clsMascota.cs" />
+    <Compile Include="Clases\clsMetodoPago.cs" />
+    <Compile Include="Clases\clsPrescripcion.cs" />
+    <Compile Include="Clases\clsProductoFarmacia.cs" />
     <Compile Include="Clases\clsPropietario.cs" />
     <Compile Include="Clases\clsRaza.cs" />
     <Compile Include="Controllers\CamasController.cs" />
@@ -176,84 +181,116 @@
     <Compile Include="Controllers\EspeciesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HospitalizacionesController.cs" />
+    <Compile Include="Controllers\InventarioFarmaciaController.cs" />
+    <Compile Include="Controllers\InventarioSedeController.cs" />
     <Compile Include="Controllers\MascotasController.cs" />
+    <Compile Include="Controllers\MetodoPagoController.cs" />
+    <Compile Include="Controllers\PrescripcionController.cs" />
+    <Compile Include="Controllers\ProductoMedicamentoController.cs" />
     <Compile Include="Controllers\PropietariosController.cs" />
     <Compile Include="Controllers\RazasController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AtencionServicioAdicional.cs">
+      <DependentUpon>bdVeterinaria.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\bdVeterinaria.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>bdVeterinaria.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\bdVeterinaria.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>bdVeterinaria.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\bdVeterinaria.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>bdVeterinaria.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\Cama.cs">
-      <DependentUpon>dbVeterinaria.tt</DependentUpon>
+      <DependentUpon>bdVeterinaria.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Cirugia.cs">
-      <DependentUpon>dbVeterinaria.tt</DependentUpon>
+      <DependentUpon>bdVeterinaria.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Cita.cs">
-      <DependentUpon>dbVeterinaria.tt</DependentUpon>
+      <DependentUpon>bdVeterinaria.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Ciudad.cs">
-      <DependentUpon>dbVeterinaria.tt</DependentUpon>
+      <DependentUpon>bdVeterinaria.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Compra.cs">
-      <DependentUpon>dbVeterinaria.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\dbVeterinaria.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dbVeterinaria.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\dbVeterinaria.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dbVeterinaria.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\dbVeterinaria.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dbVeterinaria.edmx</DependentUpon>
+      <DependentUpon>bdVeterinaria.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Detalle_Factura.cs">
-      <DependentUpon>dbVeterinaria.tt</DependentUpon>
+      <DependentUpon>bdVeterinaria.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Empleado.cs">
-      <DependentUpon>dbVeterinaria.tt</DependentUpon>
+      <DependentUpon>bdVeterinaria.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Especie.cs">
-      <DependentUpon>dbVeterinaria.tt</DependentUpon>
+      <DependentUpon>bdVeterinaria.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EstadosOrdenCompra.cs">
+      <DependentUpon>bdVeterinaria.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Factura.cs">
-      <DependentUpon>dbVeterinaria.tt</DependentUpon>
+      <DependentUpon>bdVeterinaria.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HistorialCompra.cs">
+      <DependentUpon>bdVeterinaria.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Hospitalizacion.cs">
-      <DependentUpon>dbVeterinaria.tt</DependentUpon>
+      <DependentUpon>bdVeterinaria.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Inventario_Sede.cs">
-      <DependentUpon>dbVeterinaria.tt</DependentUpon>
+    <Compile Include="Models\InventarioFarmacia.cs">
+      <DependentUpon>bdVeterinaria.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InventarioSede.cs">
+      <DependentUpon>bdVeterinaria.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Mascota.cs">
-      <DependentUpon>dbVeterinaria.tt</DependentUpon>
+      <DependentUpon>bdVeterinaria.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MetodoPago.cs">
+      <DependentUpon>bdVeterinaria.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrdenesCompra.cs">
+      <DependentUpon>bdVeterinaria.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrdenesCompraDetalle.cs">
+      <DependentUpon>bdVeterinaria.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Prescripcion.cs">
+      <DependentUpon>bdVeterinaria.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Productos_Farmacia.cs">
-      <DependentUpon>dbVeterinaria.tt</DependentUpon>
+      <DependentUpon>bdVeterinaria.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Productos_Proveedor.cs">
-      <DependentUpon>dbVeterinaria.tt</DependentUpon>
+      <DependentUpon>bdVeterinaria.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Propietario.cs">
-      <DependentUpon>dbVeterinaria.tt</DependentUpon>
+      <DependentUpon>bdVeterinaria.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Proveedore.cs">
-      <DependentUpon>dbVeterinaria.tt</DependentUpon>
+      <DependentUpon>bdVeterinaria.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Raza.cs">
-      <DependentUpon>dbVeterinaria.tt</DependentUpon>
+      <DependentUpon>bdVeterinaria.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Sede.cs">
-      <DependentUpon>dbVeterinaria.tt</DependentUpon>
+      <DependentUpon>bdVeterinaria.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Servicios_Adicionales.cs">
-      <DependentUpon>dbVeterinaria.tt</DependentUpon>
+    <Compile Include="Models\ServiciosAdicionale.cs">
+      <DependentUpon>bdVeterinaria.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>bdVeterinaria.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -277,15 +314,15 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Models\dbVeterinaria.Context.tt">
+    <Content Include="Models\bdVeterinaria.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>dbVeterinaria.Context.cs</LastGenOutput>
-      <DependentUpon>dbVeterinaria.edmx</DependentUpon>
+      <DependentUpon>bdVeterinaria.edmx</DependentUpon>
+      <LastGenOutput>bdVeterinaria.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\dbVeterinaria.tt">
+    <Content Include="Models\bdVeterinaria.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>dbVeterinaria.edmx</DependentUpon>
-      <LastGenOutput>dbVeterinaria.cs</LastGenOutput>
+      <DependentUpon>bdVeterinaria.edmx</DependentUpon>
+      <LastGenOutput>bdVeterinaria.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -312,12 +349,12 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="Models\dbVeterinaria.edmx">
+    <EntityDeploy Include="Models\bdVeterinaria.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>dbVeterinaria.Designer.cs</LastGenOutput>
+      <LastGenOutput>bdVeterinaria.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\dbVeterinaria.edmx.diagram">
-      <DependentUpon>dbVeterinaria.edmx</DependentUpon>
+    <Content Include="Models\bdVeterinaria.edmx.diagram">
+      <DependentUpon>bdVeterinaria.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\site26449-WebDeploy.pubxml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
@@ -343,8 +380,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Camas\" />
-    <Folder Include="Views\Cirugias\" />
     <Folder Include="Views\Hospitalizaciones\" />
     <Folder Include="Views\Razas\" />
   </ItemGroup>
