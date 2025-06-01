@@ -38,6 +38,7 @@ namespace VeterinariaServ.Models
         public virtual DbSet<Factura> Facturas { get; set; }
         public virtual DbSet<HistorialCompra> HistorialCompras { get; set; }
         public virtual DbSet<Hospitalizacion> Hospitalizacions { get; set; }
+        public virtual DbSet<InventarioFarmacia> InventarioFarmacias { get; set; }
         public virtual DbSet<InventarioSede> InventarioSedes { get; set; }
         public virtual DbSet<Mascota> Mascotas { get; set; }
         public virtual DbSet<MetodoPago> MetodoPagoes { get; set; }
@@ -51,7 +52,8 @@ namespace VeterinariaServ.Models
         public virtual DbSet<Raza> Razas { get; set; }
         public virtual DbSet<Sede> Sedes { get; set; }
         public virtual DbSet<ServiciosAdicionale> ServiciosAdicionales { get; set; }
-        public virtual DbSet<InventarioFarmacia> InventarioFarmacias { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Usuario> Usuarios { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }
