@@ -17,10 +17,10 @@ namespace VeterinariaServ.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Mascota()
         {
+            this.AtencionServicioAdicionals = new HashSet<AtencionServicioAdicional>();
             this.Cirugias = new HashSet<Cirugia>();
             this.Citas = new HashSet<Cita>();
             this.Hospitalizacions = new HashSet<Hospitalizacion>();
-            this.AtencionServicioAdicionals = new HashSet<AtencionServicioAdicional>();
             this.Prescripcions = new HashSet<Prescripcion>();
         }
     
@@ -32,6 +32,8 @@ namespace VeterinariaServ.Models
         public Nullable<int> ID_Propietario { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AtencionServicioAdicional> AtencionServicioAdicionals { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cirugia> Cirugias { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cita> Citas { get; set; }
@@ -39,8 +41,6 @@ namespace VeterinariaServ.Models
         public virtual ICollection<Hospitalizacion> Hospitalizacions { get; set; }
         public virtual Propietario Propietario { get; set; }
         public virtual Raza Raza { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AtencionServicioAdicional> AtencionServicioAdicionals { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Prescripcion> Prescripcions { get; set; }
     }

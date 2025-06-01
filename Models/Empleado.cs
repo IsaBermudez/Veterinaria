@@ -17,9 +17,9 @@ namespace VeterinariaServ.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Empleado()
         {
+            this.AtencionServicioAdicionals = new HashSet<AtencionServicioAdicional>();
             this.Cirugias = new HashSet<Cirugia>();
             this.Citas = new HashSet<Cita>();
-            this.AtencionServicioAdicionals = new HashSet<AtencionServicioAdicional>();
             this.Prescripcions = new HashSet<Prescripcion>();
         }
     
@@ -30,12 +30,12 @@ namespace VeterinariaServ.Models
         public Nullable<int> ID_Sede { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AtencionServicioAdicional> AtencionServicioAdicionals { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cirugia> Cirugias { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cita> Citas { get; set; }
         public virtual Sede Sede { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AtencionServicioAdicional> AtencionServicioAdicionals { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Prescripcion> Prescripcions { get; set; }
     }

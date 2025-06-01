@@ -12,18 +12,17 @@ namespace VeterinariaServ.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Inventario_Sede
+    public partial class InventarioSede
     {
-        public int ID { get; set; }
-        public Nullable<int> ID_ProductoFamarcia { get; set; }
-        public Nullable<int> ID_ProductoProveedor { get; set; }
-        public Nullable<int> ID_Sede { get; set; }
-        public Nullable<int> Cantidad { get; set; }
-        public int Id_Inventario { get; set; }
+        public int IdInventarioSede { get; set; }
+        public Nullable<int> IdMedicamento { get; set; }
+        public Nullable<int> IdProductosProveedor { get; set; }
+        public int IdSede { get; set; }
+        public Nullable<System.DateTime> FechaVencimiento { get; set; }
+        public int Cantidad { get; set; }
     
         public virtual Productos_Farmacia Productos_Farmacia { get; set; }
         public virtual Productos_Proveedor Productos_Proveedor { get; set; }
         public virtual Sede Sede { get; set; }
-        public virtual InventarioFarmacia InventarioFarmacia { get; set; }
     }
 }

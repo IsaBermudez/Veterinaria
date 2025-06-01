@@ -19,7 +19,7 @@ namespace VeterinariaServ.Models
         {
             this.Cirugias = new HashSet<Cirugia>();
             this.Compras = new HashSet<Compra>();
-            this.Inventario_Sede = new HashSet<Inventario_Sede>();
+            this.InventarioSedes = new HashSet<InventarioSede>();
         }
     
         public int ID { get; set; }
@@ -33,7 +33,7 @@ namespace VeterinariaServ.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Compra> Compras { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Inventario_Sede> Inventario_Sede { get; set; }
+        public virtual ICollection<InventarioSede> InventarioSedes { get; set; }
         public virtual Proveedore Proveedore { get; set; }
     }
 }

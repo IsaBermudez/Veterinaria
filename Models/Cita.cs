@@ -20,6 +20,9 @@ namespace VeterinariaServ.Models
         public Nullable<int> ID_Mascota { get; set; }
         public Nullable<int> ID_Empleado { get; set; }
         public Nullable<int> ID_Sede { get; set; }
+        public Nullable<System.DateTime> FechaHora { get; set; }
+        public Nullable<bool> Estado { get; set; }
+        public string TipoCita { get; set; }
     
         public virtual Empleado Empleado { get; set; }
         public virtual Mascota Mascota { get; set; }

@@ -7,12 +7,11 @@ using VeterinariaServ.Models;
 
 namespace VeterinariaServ.Clases
 {
-    public class clsInventarioFarmacia
+    public class clsInventarioSede
     {
         private dbVeterinariaEntities dbVeterinaria = new dbVeterinariaEntities();
-        public InventarioFarmacia Inventario { get; set; }
-
-        public clsInventarioFarmacia()
+        public InventarioSede Inventario { get; set; }
+        public clsInventarioSede()
         {
             dbVeterinaria = new dbVeterinariaEntities();
             dbVeterinaria.Configuration.LazyLoadingEnabled = false;
@@ -22,13 +21,13 @@ namespace VeterinariaServ.Clases
         {
             try
             {
-                dbVeterinaria.InventarioFarmacias.Add(Inventario);
+                dbVeterinaria.InventarioSedes.Add(Inventario);
                 dbVeterinaria.SaveChanges();
-                return "El producto se agrego correctamente al inventario de la farmacia";
+                return "El producto se agrego correctamente al inventario de la sede";
             }
             catch (Exception ex)
             {
-                return "Error al insertar el producto al inventario de la farmacia " + ex.Message;
+                return "Error al insertar el producto al inventario de la sede " + ex.Message;
             }
 
 
@@ -36,26 +35,26 @@ namespace VeterinariaServ.Clases
 
         public string Actualizar()
         {
-            InventarioFarmacia inf = Consultar(Inventario.IdInventario);
-            if (inf == null)
+            InventarioSede invs = Consultar(Inventario.IdInventarioSede);
+            if (invs == null)
             {
-                return "El id del medicamento de la farmacia no es válido";
+                return "El id del medicamento del inventario de la sede no es válido";
             }
-            dbVeterinaria.InventarioFarmacias.AddOrUpdate(Inventario);
+            dbVeterinaria.InventarioSedes.AddOrUpdate(Inventario);
             dbVeterinaria.SaveChanges();
-            return "Se actualizó el medicamento de la farmacia correctamente";
+            return "Se actualizó el medicamento del inventario de la sede correctamente";
 
         }
 
-        public InventarioFarmacia Consultar(int Id)
+        public InventarioSede Consultar(int Id)
         {
-            InventarioFarmacia inf = dbVeterinaria.InventarioFarmacias.FirstOrDefault(m => m.IdInventario == Id);
-            return inf;
+            InventarioSede invs = dbVeterinaria.InventarioSedes.FirstOrDefault(m => m.IdInventarioSede == Id);
+            return invs;
 
         }
-        public List<InventarioFarmacia> ConsultarTodos()
+        public List<InventarioSede> ConsultarTodos()
         {
-            return dbVeterinaria.InventarioFarmacias
+            return dbVeterinaria.InventarioSedes
                 .OrderBy(p => p.FechaVencimiento)
                 .ToList();
         }
@@ -64,12 +63,12 @@ namespace VeterinariaServ.Clases
             try
             {
 
-                InventarioFarmacia inf = Consultar(Id);
-                if (inf == null)
+                InventarioSede invs = Consultar(Id);
+                if (invs == null)
                 {
                     return "El id del medicamento no es válido";
                 }
-                dbVeterinaria.InventarioFarmacias.Remove(inf);
+                dbVeterinaria.InventarioSedes.Remove(invs);
                 dbVeterinaria.SaveChanges();
                 return "Se eliminó el medicamento de la farmacia correctamente";
             }

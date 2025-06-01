@@ -12,13 +12,12 @@ namespace VeterinariaServ.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class InventarioFarmacia
+    public partial class sysdiagram
     {
-        public int IdInventario { get; set; }
-        public int IdProductosFarmacia { get; set; }
-        public System.DateTime FechaVencimiento { get; set; }
-        public int Cantidad { get; set; }
-    
-        public virtual Productos_Farmacia Productos_Farmacia { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

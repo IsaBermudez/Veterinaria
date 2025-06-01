@@ -19,26 +19,26 @@ namespace VeterinariaServ.Models
         {
             this.Detalle_Factura = new HashSet<Detalle_Factura>();
             this.Hospitalizacions = new HashSet<Hospitalizacion>();
-            this.Inventario_Sede = new HashSet<Inventario_Sede>();
-            this.InventarioFarmacias = new HashSet<InventarioFarmacia>();
+            this.InventarioSedes = new HashSet<InventarioSede>();
             this.Prescripcions = new HashSet<Prescripcion>();
+            this.InventarioFarmacias = new HashSet<InventarioFarmacia>();
         }
     
         public int ID { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public Nullable<decimal> Precio { get; set; }
-        public Nullable<System.DateTime> FechaVencimiento { get; set; }
+        public string UnidadMedida { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Detalle_Factura> Detalle_Factura { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Hospitalizacion> Hospitalizacions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Inventario_Sede> Inventario_Sede { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<InventarioFarmacia> InventarioFarmacias { get; set; }
+        public virtual ICollection<InventarioSede> InventarioSedes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Prescripcion> Prescripcions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<InventarioFarmacia> InventarioFarmacias { get; set; }
     }
 }

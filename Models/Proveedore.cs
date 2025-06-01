@@ -17,8 +17,8 @@ namespace VeterinariaServ.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Proveedore()
         {
-            this.Productos_Proveedor = new HashSet<Productos_Proveedor>();
             this.OrdenesCompras = new HashSet<OrdenesCompra>();
+            this.Productos_Proveedor = new HashSet<Productos_Proveedor>();
         }
     
         public int NIT { get; set; }
@@ -27,8 +27,8 @@ namespace VeterinariaServ.Models
         public string Direccion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Productos_Proveedor> Productos_Proveedor { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrdenesCompra> OrdenesCompras { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Productos_Proveedor> Productos_Proveedor { get; set; }
     }
 }

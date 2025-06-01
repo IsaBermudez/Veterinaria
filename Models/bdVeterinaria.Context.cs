@@ -25,6 +25,7 @@ namespace VeterinariaServ.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<AtencionServicioAdicional> AtencionServicioAdicionals { get; set; }
         public virtual DbSet<Cama> Camas { get; set; }
         public virtual DbSet<Cirugia> Cirugias { get; set; }
         public virtual DbSet<Cita> Citas { get; set; }
@@ -33,24 +34,24 @@ namespace VeterinariaServ.Models
         public virtual DbSet<Detalle_Factura> Detalle_Factura { get; set; }
         public virtual DbSet<Empleado> Empleadoes { get; set; }
         public virtual DbSet<Especie> Especies { get; set; }
+        public virtual DbSet<EstadosOrdenCompra> EstadosOrdenCompras { get; set; }
         public virtual DbSet<Factura> Facturas { get; set; }
+        public virtual DbSet<HistorialCompra> HistorialCompras { get; set; }
         public virtual DbSet<Hospitalizacion> Hospitalizacions { get; set; }
-        public virtual DbSet<Inventario_Sede> Inventario_Sede { get; set; }
+        public virtual DbSet<InventarioSede> InventarioSedes { get; set; }
         public virtual DbSet<Mascota> Mascotas { get; set; }
+        public virtual DbSet<MetodoPago> MetodoPagoes { get; set; }
+        public virtual DbSet<OrdenesCompra> OrdenesCompras { get; set; }
+        public virtual DbSet<OrdenesCompraDetalle> OrdenesCompraDetalles { get; set; }
+        public virtual DbSet<Prescripcion> Prescripcions { get; set; }
         public virtual DbSet<Productos_Farmacia> Productos_Farmacia { get; set; }
         public virtual DbSet<Productos_Proveedor> Productos_Proveedor { get; set; }
         public virtual DbSet<Propietario> Propietarios { get; set; }
         public virtual DbSet<Proveedore> Proveedores { get; set; }
         public virtual DbSet<Raza> Razas { get; set; }
         public virtual DbSet<Sede> Sedes { get; set; }
-        public virtual DbSet<AtencionServicioAdicional> AtencionServicioAdicionals { get; set; }
-        public virtual DbSet<EstadosOrdenCompra> EstadosOrdenCompras { get; set; }
-        public virtual DbSet<HistorialCompra> HistorialCompras { get; set; }
-        public virtual DbSet<InventarioFarmacia> InventarioFarmacias { get; set; }
-        public virtual DbSet<MetodoPago> MetodoPagoes { get; set; }
-        public virtual DbSet<OrdenesCompra> OrdenesCompras { get; set; }
-        public virtual DbSet<OrdenesCompraDetalle> OrdenesCompraDetalles { get; set; }
-        public virtual DbSet<Prescripcion> Prescripcions { get; set; }
         public virtual DbSet<ServiciosAdicionale> ServiciosAdicionales { get; set; }
+        public virtual DbSet<InventarioFarmacia> InventarioFarmacias { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }
