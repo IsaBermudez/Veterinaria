@@ -162,6 +162,8 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Clases\clsCama.cs" />
+    <Compile Include="Clases\clsCirugia.cs" />
     <Compile Include="Clases\clsCiudad.cs" />
     <Compile Include="Clases\clsEspecie.cs" />
     <Compile Include="Clases\clsHospitalizacion.cs" />
@@ -173,6 +175,8 @@
     <Compile Include="Clases\clsProductoFarmacia.cs" />
     <Compile Include="Clases\clsPropietario.cs" />
     <Compile Include="Clases\clsRaza.cs" />
+    <Compile Include="Controllers\CamasController.cs" />
+    <Compile Include="Controllers\CirugiasController.cs" />
     <Compile Include="Controllers\CiudadController.cs" />
     <Compile Include="Controllers\EspeciesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
