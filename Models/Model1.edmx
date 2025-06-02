@@ -41,8 +41,6 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="Fecha" Type="date" />
-          <Property Name="Motivo" Type="varchar" MaxLength="250" />
           <Property Name="ID_Mascota" Type="int" />
           <Property Name="ID_Empleado" Type="int" />
           <Property Name="ID_Sede" Type="int" />
@@ -289,8 +287,8 @@
           <Property Name="Clave" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="Rol" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'db19921.dbo.Usuarios' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'db19921.dbo.Usuarios' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Usuarios">
           <Key>
             <PropertyRef Name="Usuario" />
@@ -1008,23 +1006,6 @@ advertencia 6002: La tabla o vista 'db19921.dbo.Usuarios' no tiene definida ning
           <NavigationProperty Name="Sede" Relationship="Self.FK__Cirugia__ID_Sede__59FA5E80" FromRole="Cirugia" ToRole="Sede" />
           <NavigationProperty Name="Detalle_Factura" Relationship="Self.FK__Detalle_F__ID_Ci__6A30C649" FromRole="Cirugia" ToRole="Detalle_Factura" />
         </EntityType>
-        <EntityType Name="Cita">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Fecha" Type="DateTime" Precision="0" />
-          <Property Name="Motivo" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="ID_Mascota" Type="Int32" />
-          <Property Name="ID_Empleado" Type="Int32" />
-          <Property Name="ID_Sede" Type="Int32" />
-          <Property Name="FechaHora" Type="DateTime" Precision="3" />
-          <Property Name="Estado" Type="Boolean" />
-          <Property Name="TipoCita" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Empleado" Relationship="Self.FK__Cita__ID_Emplead__628FA481" FromRole="Cita" ToRole="Empleado" />
-          <NavigationProperty Name="Mascota" Relationship="Self.FK__Cita__ID_Mascota__619B8048" FromRole="Cita" ToRole="Mascota" />
-          <NavigationProperty Name="Sede" Relationship="Self.FK__Cita__ID_Sede__6383C8BA" FromRole="Cita" ToRole="Sede" />
-        </EntityType>
         <EntityType Name="Ciudad">
           <Key>
             <PropertyRef Name="ID" />
@@ -1072,9 +1053,9 @@ advertencia 6002: La tabla o vista 'db19921.dbo.Usuarios' no tiene definida ning
           <Property Name="ID_Sede" Type="Int32" />
           <NavigationProperty Name="AtencionServicioAdicionals" Relationship="Self.FK__AtencionS__IdEmp__3864608B" FromRole="Empleado" ToRole="AtencionServicioAdicional" />
           <NavigationProperty Name="Cirugias" Relationship="Self.FK__Cirugia__ID_Empl__59063A47" FromRole="Empleado" ToRole="Cirugia" />
-          <NavigationProperty Name="Citas" Relationship="Self.FK__Cita__ID_Emplead__628FA481" FromRole="Empleado" ToRole="Cita" />
           <NavigationProperty Name="Sede" Relationship="Self.FK__Empleado__ID_Sed__45F365D3" FromRole="Empleado" ToRole="Sede" />
           <NavigationProperty Name="Prescripcions" Relationship="Self.FK__Prescripc__Id_Me__17F790F9" FromRole="Empleado" ToRole="Prescripcion" />
+          <NavigationProperty Name="Citas" Relationship="bdVeterinariaEntities.FK__Cita__ID_Emplead__628FA481" FromRole="Empleado" ToRole="Cita" />
         </EntityType>
         <EntityType Name="Especie">
           <Key>
@@ -1165,11 +1146,11 @@ advertencia 6002: La tabla o vista 'db19921.dbo.Usuarios' no tiene definida ning
           <Property Name="ID_Propietario" Type="Int32" />
           <NavigationProperty Name="AtencionServicioAdicionals" Relationship="Self.FK__AtencionS__IdMas__367C1819" FromRole="Mascota" ToRole="AtencionServicioAdicional" />
           <NavigationProperty Name="Cirugias" Relationship="Self.FK__Cirugia__ID_Masc__571DF1D5" FromRole="Mascota" ToRole="Cirugia" />
-          <NavigationProperty Name="Citas" Relationship="Self.FK__Cita__ID_Mascota__619B8048" FromRole="Mascota" ToRole="Cita" />
           <NavigationProperty Name="Hospitalizacions" Relationship="Self.FK__Hospitali__ID_Ma__5CD6CB2B" FromRole="Mascota" ToRole="Hospitalizacion" />
           <NavigationProperty Name="Propietario" Relationship="Self.FK__Mascota__ID_Prop__4316F928" FromRole="Mascota" ToRole="Propietario" />
           <NavigationProperty Name="Raza" Relationship="Self.FK__Mascota__ID_Raza__4222D4EF" FromRole="Mascota" ToRole="Raza" />
           <NavigationProperty Name="Prescripcions" Relationship="Self.FK__Prescripc__Id_Pa__160F4887" FromRole="Mascota" ToRole="Prescripcion" />
+          <NavigationProperty Name="Citas" Relationship="bdVeterinariaEntities.FK__Cita__ID_Mascota__619B8048" FromRole="Mascota" ToRole="Cita" />
         </EntityType>
         <EntityType Name="MetodoPago">
           <Key>
@@ -1294,10 +1275,10 @@ advertencia 6002: La tabla o vista 'db19921.dbo.Usuarios' no tiene definida ning
           <Property Name="ID_Ciudad" Type="Int32" />
           <NavigationProperty Name="Camas" Relationship="Self.FK__Cama__ID_Sede__48CFD27E" FromRole="Sede" ToRole="Cama" />
           <NavigationProperty Name="Cirugias" Relationship="Self.FK__Cirugia__ID_Sede__59FA5E80" FromRole="Sede" ToRole="Cirugia" />
-          <NavigationProperty Name="Citas" Relationship="Self.FK__Cita__ID_Sede__6383C8BA" FromRole="Sede" ToRole="Cita" />
           <NavigationProperty Name="Ciudad" Relationship="Self.FK__Sede__ID_Ciudad__38996AB5" FromRole="Sede" ToRole="Ciudad" />
           <NavigationProperty Name="Empleadoes" Relationship="Self.FK__Empleado__ID_Sed__45F365D3" FromRole="Sede" ToRole="Empleado" />
           <NavigationProperty Name="InventarioSedes" Relationship="Self.FK__Inventari__IdSed__489AC854" FromRole="Sede" ToRole="InventarioSede" />
+          <NavigationProperty Name="Citas" Relationship="bdVeterinariaEntities.FK__Cita__ID_Sede__6383C8BA" FromRole="Sede" ToRole="Cita" />
         </EntityType>
         <EntityType Name="ServiciosAdicionale">
           <Key>
@@ -1448,42 +1429,6 @@ advertencia 6002: La tabla o vista 'db19921.dbo.Usuarios' no tiene definida ning
             </Principal>
             <Dependent Role="Detalle_Factura">
               <PropertyRef Name="ID_Cirugia" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Cita__ID_Emplead__628FA481">
-          <End Role="Empleado" Type="Self.Empleado" Multiplicity="0..1" />
-          <End Role="Cita" Type="Self.Cita" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Empleado">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Cita">
-              <PropertyRef Name="ID_Empleado" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Cita__ID_Mascota__619B8048">
-          <End Role="Mascota" Type="Self.Mascota" Multiplicity="0..1" />
-          <End Role="Cita" Type="Self.Cita" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Mascota">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Cita">
-              <PropertyRef Name="ID_Mascota" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Cita__ID_Sede__6383C8BA">
-          <End Role="Sede" Type="Self.Sede" Multiplicity="0..1" />
-          <End Role="Cita" Type="Self.Cita" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sede">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Cita">
-              <PropertyRef Name="ID_Sede" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1803,7 +1748,6 @@ advertencia 6002: La tabla o vista 'db19921.dbo.Usuarios' no tiene definida ning
           <EntitySet Name="AtencionServicioAdicionals" EntityType="Self.AtencionServicioAdicional" />
           <EntitySet Name="Camas" EntityType="Self.Cama" />
           <EntitySet Name="Cirugias" EntityType="Self.Cirugia" />
-          <EntitySet Name="Citas" EntityType="Self.Cita" />
           <EntitySet Name="Ciudads" EntityType="Self.Ciudad" />
           <EntitySet Name="Compras" EntityType="Self.Compra" />
           <EntitySet Name="Detalle_Factura" EntityType="Self.Detalle_Factura" />
@@ -1868,18 +1812,6 @@ advertencia 6002: La tabla o vista 'db19921.dbo.Usuarios' no tiene definida ning
           <AssociationSet Name="FK__Detalle_F__ID_Ci__6A30C649" Association="Self.FK__Detalle_F__ID_Ci__6A30C649">
             <End Role="Cirugia" EntitySet="Cirugias" />
             <End Role="Detalle_Factura" EntitySet="Detalle_Factura" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Cita__ID_Emplead__628FA481" Association="Self.FK__Cita__ID_Emplead__628FA481">
-            <End Role="Empleado" EntitySet="Empleadoes" />
-            <End Role="Cita" EntitySet="Citas" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Cita__ID_Mascota__619B8048" Association="Self.FK__Cita__ID_Mascota__619B8048">
-            <End Role="Mascota" EntitySet="Mascotas" />
-            <End Role="Cita" EntitySet="Citas" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Cita__ID_Sede__6383C8BA" Association="Self.FK__Cita__ID_Sede__6383C8BA">
-            <End Role="Sede" EntitySet="Sedes" />
-            <End Role="Cita" EntitySet="Citas" />
           </AssociationSet>
           <AssociationSet Name="FK__Sede__ID_Ciudad__38996AB5" Association="Self.FK__Sede__ID_Ciudad__38996AB5">
             <End Role="Ciudad" EntitySet="Ciudads" />
@@ -1986,6 +1918,19 @@ advertencia 6002: La tabla o vista 'db19921.dbo.Usuarios' no tiene definida ning
             <End Role="Productos_Proveedor" EntitySet="Productos_Proveedor" />
           </AssociationSet>
           <EntitySet Name="Users" EntityType="bdVeterinariaEntities.User" />
+          <EntitySet Name="Citas" EntityType="bdVeterinariaEntities.Cita" />
+          <AssociationSet Name="FK__Cita__ID_Emplead__628FA481" Association="bdVeterinariaEntities.FK__Cita__ID_Emplead__628FA481">
+            <End Role="Empleado" EntitySet="Empleadoes" />
+            <End Role="Cita" EntitySet="Citas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cita__ID_Mascota__619B8048" Association="bdVeterinariaEntities.FK__Cita__ID_Mascota__619B8048">
+            <End Role="Mascota" EntitySet="Mascotas" />
+            <End Role="Cita" EntitySet="Citas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cita__ID_Sede__6383C8BA" Association="bdVeterinariaEntities.FK__Cita__ID_Sede__6383C8BA">
+            <End Role="Sede" EntitySet="Sedes" />
+            <End Role="Cita" EntitySet="Citas" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -1995,6 +1940,57 @@ advertencia 6002: La tabla o vista 'db19921.dbo.Usuarios' no tiene definida ning
           <Property Name="Clave" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="Rol" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="Cita">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID_Mascota" Type="Int32" />
+          <Property Name="ID_Empleado" Type="Int32" />
+          <Property Name="ID_Sede" Type="Int32" />
+          <Property Name="FechaHora" Type="DateTime" Precision="3" />
+          <Property Name="Estado" Type="Boolean" />
+          <Property Name="TipoCita" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Empleado" Relationship="bdVeterinariaEntities.FK__Cita__ID_Emplead__628FA481" FromRole="Cita" ToRole="Empleado" />
+          <NavigationProperty Name="Mascota" Relationship="bdVeterinariaEntities.FK__Cita__ID_Mascota__619B8048" FromRole="Cita" ToRole="Mascota" />
+          <NavigationProperty Name="Sede" Relationship="bdVeterinariaEntities.FK__Cita__ID_Sede__6383C8BA" FromRole="Cita" ToRole="Sede" />
+        </EntityType>
+        <Association Name="FK__Cita__ID_Emplead__628FA481">
+          <End Type="bdVeterinariaEntities.Empleado" Role="Empleado" Multiplicity="0..1" />
+          <End Type="bdVeterinariaEntities.Cita" Role="Cita" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Cita">
+              <PropertyRef Name="ID_Empleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cita__ID_Mascota__619B8048">
+          <End Type="bdVeterinariaEntities.Mascota" Role="Mascota" Multiplicity="0..1" />
+          <End Type="bdVeterinariaEntities.Cita" Role="Cita" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mascota">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Cita">
+              <PropertyRef Name="ID_Mascota" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cita__ID_Sede__6383C8BA">
+          <End Type="bdVeterinariaEntities.Sede" Role="Sede" Multiplicity="0..1" />
+          <End Type="bdVeterinariaEntities.Cita" Role="Cita" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sede">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Cita">
+              <PropertyRef Name="ID_Sede" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2032,21 +2028,6 @@ advertencia 6002: La tabla o vista 'db19921.dbo.Usuarios' no tiene definida ning
                 <ScalarProperty Name="Costo" ColumnName="Costo" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
                 <ScalarProperty Name="ID_Sede" ColumnName="ID_Sede" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Citas">
-            <EntityTypeMapping TypeName="bdVeterinariaEntities.Cita">
-              <MappingFragment StoreEntitySet="Cita">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-                <ScalarProperty Name="Motivo" ColumnName="Motivo" />
-                <ScalarProperty Name="ID_Mascota" ColumnName="ID_Mascota" />
-                <ScalarProperty Name="ID_Empleado" ColumnName="ID_Empleado" />
-                <ScalarProperty Name="ID_Sede" ColumnName="ID_Sede" />
-                <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="TipoCita" ColumnName="TipoCita" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2320,6 +2301,19 @@ advertencia 6002: La tabla o vista 'db19921.dbo.Usuarios' no tiene definida ning
                 <ScalarProperty Name="Rol" ColumnName="Rol" />
                 <ScalarProperty Name="Clave" ColumnName="Clave" />
                 <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Citas">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.Cita">
+              <MappingFragment StoreEntitySet="Cita">
+                <ScalarProperty Name="TipoCita" ColumnName="TipoCita" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
+                <ScalarProperty Name="ID_Sede" ColumnName="ID_Sede" />
+                <ScalarProperty Name="ID_Empleado" ColumnName="ID_Empleado" />
+                <ScalarProperty Name="ID_Mascota" ColumnName="ID_Mascota" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
