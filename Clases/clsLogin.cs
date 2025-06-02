@@ -13,20 +13,15 @@ namespace VeterinariaServ.Clases
         private LoginRespuesta logRpta;
         private bool ValidarUsuario()
         {
+            
+
             try
             {
-               
                 User usuario = dbVeterinaria.Users.FirstOrDefault(u => u.Usuario == login.Usuario);
                 if (usuario == null)
                 {
                     logRpta = new LoginRespuesta();
                     logRpta.Mensaje = "Usuario no existe";
-                    return false;
-                }
-                if (usuario.Clave != login.Clave)
-                {
-                    logRpta = new LoginRespuesta();
-                    logRpta.Mensaje = "Clave incorrecta";
                     return false;
                 }
                 return true;
@@ -40,9 +35,13 @@ namespace VeterinariaServ.Clases
         }
         public IQueryable<LoginRespuesta> Ingresar()
         {
+            User usuario = dbVeterinaria.Users.FirstOrDefault(u => u.Usuario == login.Usuario);
+            bool aux;
+            if (usuario.Clave != login.Clave) { 
+                aux = false;
+            } else { aux = true; }
             if (ValidarUsuario())
             {
-                //string token = TokenGenerator.GenerateTokenJwt(login.Usuario);
                 string token = TokenGenerator.GenerateTokenJwt(login.Usuario);
                 return from U in dbVeterinaria.Set<User>()
                        where U.Usuario == login.Usuario &&
@@ -50,8 +49,8 @@ namespace VeterinariaServ.Clases
                        select new LoginRespuesta
                        {
                            Usuario = U.Usuario,
-                           PaginaInicio = U.Rol,    
-                           Autenticado = true,
+                           PaginaInicio = U.Rol,
+                           Autenticado = aux,
                            Token = token,
                            Mensaje = "Usuario autenticado",
                        };
