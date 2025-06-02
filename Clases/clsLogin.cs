@@ -58,17 +58,7 @@ namespace VeterinariaServ.Clases
             }
             else
             {
-                return from U in dbVeterinaria.Set<User>()
-                       where U.Usuario == login.Usuario &&
-                             U.Clave == login.Clave
-                       select new LoginRespuesta
-                       {
-                           Usuario = U.Usuario,
-                           PaginaInicio = U.Rol,
-                           Autenticado = true,
-                           Token = "false",
-                           Mensaje = "Ha ocurrido un error al autenticarse, por favor intente nuevamente",
-                       };
+                return null;
             }
         }
     }
