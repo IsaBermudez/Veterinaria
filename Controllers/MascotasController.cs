@@ -9,11 +9,13 @@ using VeterinariaServ.Models;
 
 namespace VeterinariaServ.Controllers
 {
+    
     [RoutePrefix("api/Mascotas")]
     public class MascotasController : ApiController
     {
         [HttpGet]
         [Route("ConsultarTodos")]
+       
 
         public List<Mascota> ConsultarTodos()
         {

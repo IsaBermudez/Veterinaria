@@ -224,6 +224,7 @@
     <Compile Include="Clases\clsHospitalizacion.cs" />
     <Compile Include="Clases\clsInventarioFarmacia.cs" />
     <Compile Include="Clases\clsInventarioSede.cs" />
+    <Compile Include="Clases\clsLogin.cs" />
     <Compile Include="Clases\clsMascota.cs" />
     <Compile Include="Clases\clsMetodoPago.cs" />
     <Compile Include="Clases\clsOrdenesCompra.cs" />
@@ -246,6 +247,7 @@
     <Compile Include="Controllers\HospitalizacionesController.cs" />
     <Compile Include="Controllers\InventarioFarmaciaController.cs" />
     <Compile Include="Controllers\InventarioSedeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MascotasController.cs" />
     <Compile Include="Controllers\MetodoPagoController.cs" />
     <Compile Include="Controllers\OrdenesCompraController.cs" />
@@ -304,6 +306,7 @@
     <Compile Include="Models\InventarioSede.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\libLogin.cs" />
     <Compile Include="Models\Mascota.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

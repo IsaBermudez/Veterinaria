@@ -39,7 +39,7 @@ namespace VeterinariaServ.Controllers
             {
                 Usuario = propietario.Correo,
                 Clave = propietario.Cedula.ToString(),
-                Rol = "Propietario"
+                Rol = "General.html"
             };
             user.Insertar();
             return prop.Insertar();
