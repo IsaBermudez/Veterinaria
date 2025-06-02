@@ -13,6 +13,7 @@ namespace VeterinariaServ
         public static void Register(HttpConfiguration config)
         {
             //Configurar Token
+            config.EnableCors();
             config.MessageHandlers.Add(new TokenValidationHandler());
 
             // Configurar JSON para ignorar referencias circulares y usar contract resolver por defecto
