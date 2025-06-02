@@ -12,12 +12,30 @@ namespace VeterinariaServ.Clases
         private dbVeterinariaEntities dbVeterinaria = new dbVeterinariaEntities();
         public Cita cita { get; set; }
 
+        public clsCita()
+        {
+            dbVeterinaria = new dbVeterinariaEntities();
+            dbVeterinaria.Configuration.LazyLoadingEnabled = false;
+        }
+
 
         public string Insertar()
         {
             try
             {
+                // Verificar si ya existe una cita con la misma fecha y hora,
+                // mismo tipo de cita, mismo empleado y estado = 1 (ocupado)
+                bool yaExiste = dbVeterinaria.Citas.Any(c =>
+                    c.FechaHora == cita.FechaHora &&
+                    c.TipoCita == cita.TipoCita &&
+                    c.ID_Empleado == cita.ID_Empleado &&
+                    c.Estado == true
+                );
 
+                if (yaExiste)
+                {
+                    return "Ya existe una cita para ese empleado, fecha, hora y tipo. No se puede duplicar.";
+                }
 
                 dbVeterinaria.Citas.Add(cita);
                 dbVeterinaria.SaveChanges();
@@ -25,11 +43,10 @@ namespace VeterinariaServ.Clases
             }
             catch (Exception ex)
             {
-                return "Error al insertar la cita:  " + ex.Message;
+                return "Error al insertar la cita: " + ex.Message;
             }
-
-
         }
+
 
         public string Actualizar()
         {
@@ -53,15 +70,15 @@ namespace VeterinariaServ.Clases
         public List<Cita> ConsultarTodos()
         {
             return dbVeterinaria.Citas
-                .OrderBy(c => c.Fecha)
+                .OrderBy(c => c.FechaHora)
                 .ToList();
         }
 
         public List<Cita> ConsultarPorFecha(DateTime fecha)
         {
             return dbVeterinaria.Citas
-                .Where(c => c.Fecha == fecha)
-                .OrderBy(c => c.Fecha)
+                .Where(c => c.FechaHora == fecha)
+                .OrderBy(c => c.FechaHora)
                 .ToList();
         }
 
@@ -90,5 +107,42 @@ namespace VeterinariaServ.Clases
                 return ex.Message;
             }
         }
+
+        public bool EstaDisponible(DateTime fechaHora, String tipoDeCita)
+        {
+            // Verifica si ya hay una cita con el mismo DateTime y:
+            // - Estado = 1 (no disponible)
+            // - o mismo TipoDeCita
+            var existe = dbVeterinaria.Citas.Any(c =>
+                c.FechaHora == fechaHora &&
+                (c.Estado == true && c.TipoCita == tipoDeCita)
+            );
+
+            // Si no existe tal cita, entonces está disponible
+            return !existe;
+        }
+
+        public List<DateTime> ConsultarFechasDisponibles(DateTime desde, DateTime hasta, String tipoDeCita)
+        {
+            List<DateTime> fechasDisponibles = new List<DateTime>();
+
+            for (DateTime fecha = desde.Date; fecha <= hasta.Date; fecha = fecha.AddDays(1))
+            {
+                // Aquí puedes definir los horarios por día, por ejemplo:
+                for (int hora = 8; hora <= 17; hora++) // 8 AM a 5 PM
+                {
+                    DateTime fechaHora = new DateTime(fecha.Year, fecha.Month, fecha.Day, hora, 0, 0);
+
+                    if (EstaDisponible(fechaHora, tipoDeCita))
+                    {
+                        fechasDisponibles.Add(fechaHora);
+                    }
+                }
+            }
+
+            return fechasDisponibles;
+        }
+
+
     }
 }

@@ -9,7 +9,7 @@ using System.Web.Http;
 namespace VeterinariaServ.Controllers
 {
 
-    
+
     [RoutePrefix("api/Citas")]
     public class CitasController : ApiController
     {
@@ -72,6 +72,23 @@ namespace VeterinariaServ.Controllers
             clsCita cit = new clsCita();
             return cit.EliminarXID(ID);
         }
+
+        // GET: api/citas/disponibles?desde=2025-06-02&hasta=2025-06-05&tipoDeCita=1
+        [HttpGet]
+        [Route("ConsultarRangoDisponible")]
+        public IHttpActionResult ConsultarFechasDisponibles(DateTime desde, DateTime hasta, String tipoDeCita)
+        {
+            try
+            {
+                clsCita cit = new clsCita();
+                List<DateTime> fechas = cit.ConsultarFechasDisponibles(desde, hasta, tipoDeCita);
+                return Ok(fechas);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
     }
-    
+
 }
