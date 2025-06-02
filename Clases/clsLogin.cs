@@ -50,6 +50,7 @@ namespace VeterinariaServ.Clases
                        select new LoginRespuesta
                        {
                            Usuario = U.Usuario,
+                           Documento = U.Clave,
                            PaginaInicio = U.Rol,    
                            Autenticado = true,
                            Token = token,
