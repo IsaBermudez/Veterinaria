@@ -33,7 +33,15 @@ namespace VeterinariaServ.Controllers
         public string Insertar([FromBody] Propietario propietario)
         {
             clsPropietario prop = new clsPropietario();
+            clsUsuario user = new clsUsuario();
             prop.propietario = propietario;
+            user.usuarioo = new User
+            {
+                Usuario = propietario.Correo,
+                Clave = propietario.Cedula.ToString(),
+                Rol = "Propietario"
+            };
+            user.Insertar();
             return prop.Insertar();
         }
 
