@@ -4,13 +4,15 @@ using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
-    
+using System.Security.Cryptography.X509Certificates;
+
 namespace VeterinariaServ.Clases
 {
     public class clsPropietario
     {
         private dbVeterinariaEntities dbVeterinaria = new dbVeterinariaEntities();
         public Propietario propietario { get; set; }
+        
 
         public clsPropietario()
         { 
@@ -19,10 +21,12 @@ namespace VeterinariaServ.Clases
         }
         public string Insertar()
         {
+            
             try
             {
                 dbVeterinaria.Propietarios.Add(propietario);
                 dbVeterinaria.SaveChanges();
+
                 return "Propietario agregado correctamente";
             }
             catch (Exception ex)

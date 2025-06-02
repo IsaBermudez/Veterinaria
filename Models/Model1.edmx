@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="dbVeterinariaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="bdVeterinariaEntities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AtencionServicioAdicional">
           <Key>
             <PropertyRef Name="IdAtencion" />
@@ -280,6 +280,26 @@
           <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Usuario" />
+          </Key>
+          <Property Name="Usuario" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Clave" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Rol" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'db19921.dbo.Usuarios' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="Usuario" />
+            <PropertyRef Name="Clave" />
+            <PropertyRef Name="Rol" />
+          </Key>
+          <Property Name="Usuario" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Clave" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Rol" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <Association Name="FK__AtencionS__IdEmp__3864608B">
           <End Role="Empleado" Type="Self.Empleado" Multiplicity="0..1" />
@@ -749,7 +769,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="dbVeterinariaModelStoreContainer">
+        <EntityContainer Name="bdVeterinariaEntitiesStoreContainer">
           <EntitySet Name="AtencionServicioAdicional" EntityType="Self.AtencionServicioAdicional" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cama" EntityType="Self.Cama" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cirugia" EntityType="Self.Cirugia" Schema="dbo" store:Type="Tables" />
@@ -778,6 +798,14 @@
           <EntitySet Name="Sede" EntityType="Self.Sede" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServiciosAdicionales" EntityType="Self.ServiciosAdicionales" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Usuarios].[Usuario] AS [Usuario], 
+    [Usuarios].[Clave] AS [Clave], 
+    [Usuarios].[Rol] AS [Rol]
+    FROM [dbo].[Usuarios] AS [Usuarios]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__AtencionS__IdEmp__3864608B" Association="Self.FK__AtencionS__IdEmp__3864608B">
             <End Role="Empleado" EntitySet="Empleado" />
             <End Role="AtencionServicioAdicional" EntitySet="AtencionServicioAdicional" />
@@ -938,7 +966,7 @@
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="dbVeterinariaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="bdVeterinariaEntities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="AtencionServicioAdicional">
           <Key>
             <PropertyRef Name="IdAtencion" />
@@ -1101,6 +1129,16 @@
           <NavigationProperty Name="Mascota" Relationship="Self.FK__Hospitali__ID_Ma__5CD6CB2B" FromRole="Hospitalizacion" ToRole="Mascota" />
           <NavigationProperty Name="Productos_Farmacia" Relationship="Self.FK__Hospitali__ID_Pr__5DCAEF64" FromRole="Hospitalizacion" ToRole="Productos_Farmacia" />
         </EntityType>
+        <EntityType Name="InventarioFarmacia">
+          <Key>
+            <PropertyRef Name="IdInventario" />
+          </Key>
+          <Property Name="IdInventario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdProductosFarmacia" Type="Int32" Nullable="false" />
+          <Property Name="FechaVencimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Productos_Farmacia" Relationship="Self.FK__Inventari__IdPro__4C6B5938" FromRole="InventarioFarmacia" ToRole="Productos_Farmacia" />
+        </EntityType>
         <EntityType Name="InventarioSede">
           <Key>
             <PropertyRef Name="IdInventarioSede" />
@@ -1194,9 +1232,9 @@
           <Property Name="UnidadMedida" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Detalle_Factura" Relationship="Self.FK__Detalle_F__ID_Pr__6C190EBB" FromRole="Productos_Farmacia" ToRole="Detalle_Factura" />
           <NavigationProperty Name="Hospitalizacions" Relationship="Self.FK__Hospitali__ID_Pr__5DCAEF64" FromRole="Productos_Farmacia" ToRole="Hospitalizacion" />
+          <NavigationProperty Name="InventarioFarmacias" Relationship="Self.FK__Inventari__IdPro__4C6B5938" FromRole="Productos_Farmacia" ToRole="InventarioFarmacia" />
           <NavigationProperty Name="InventarioSedes" Relationship="Self.FK__Inventari__IdMed__47A6A41B" FromRole="Productos_Farmacia" ToRole="InventarioSede" />
           <NavigationProperty Name="Prescripcions" Relationship="Self.FK__Prescripc__Id_Me__17036CC0" FromRole="Productos_Farmacia" ToRole="Prescripcion" />
-          <NavigationProperty Name="InventarioFarmacias" Relationship="dbVeterinariaModel.FK__Inventari__IdPro__4C6B5938" FromRole="Productos_Farmacia" ToRole="InventarioFarmacia" />
         </EntityType>
         <EntityType Name="Productos_Proveedor">
           <Key>
@@ -1272,6 +1310,26 @@
           <Property Name="Estado" Type="Boolean" />
           <NavigationProperty Name="AtencionServicioAdicionals" Relationship="Self.FK__AtencionS__IdSer__37703C52" FromRole="ServiciosAdicionales" ToRole="AtencionServicioAdicional" />
           <NavigationProperty Name="Detalle_Factura" Relationship="Self.FK__Detalle_F__ID_Se__3A4CA8FD" FromRole="ServiciosAdicionales" ToRole="Detalle_Factura" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Usuario1" />
+            <PropertyRef Name="Clave" />
+            <PropertyRef Name="Rol" />
+          </Key>
+          <Property Name="Usuario1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Clave" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Rol" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <Association Name="FK__AtencionS__IdEmp__3864608B">
           <End Role="Empleado" Type="Self.Empleado" Multiplicity="0..1" />
@@ -1597,6 +1655,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Inventari__IdPro__4C6B5938">
+          <End Role="Productos_Farmacia" Type="Self.Productos_Farmacia" Multiplicity="1" />
+          <End Role="InventarioFarmacia" Type="Self.InventarioFarmacia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Productos_Farmacia">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="InventarioFarmacia">
+              <PropertyRef Name="IdProductosFarmacia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Inventari__IdMed__47A6A41B">
           <End Role="Productos_Farmacia" Type="Self.Productos_Farmacia" Multiplicity="0..1" />
           <End Role="InventarioSede" Type="Self.InventarioSede" Multiplicity="*" />
@@ -1743,6 +1813,7 @@
           <EntitySet Name="Facturas" EntityType="Self.Factura" />
           <EntitySet Name="HistorialCompras" EntityType="Self.HistorialCompra" />
           <EntitySet Name="Hospitalizacions" EntityType="Self.Hospitalizacion" />
+          <EntitySet Name="InventarioFarmacias" EntityType="Self.InventarioFarmacia" />
           <EntitySet Name="InventarioSedes" EntityType="Self.InventarioSede" />
           <EntitySet Name="Mascotas" EntityType="Self.Mascota" />
           <EntitySet Name="MetodoPagoes" EntityType="Self.MetodoPago" />
@@ -1756,6 +1827,8 @@
           <EntitySet Name="Razas" EntityType="Self.Raza" />
           <EntitySet Name="Sedes" EntityType="Self.Sede" />
           <EntitySet Name="ServiciosAdicionales" EntityType="Self.ServiciosAdicionale" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
           <AssociationSet Name="FK__AtencionS__IdEmp__3864608B" Association="Self.FK__AtencionS__IdEmp__3864608B">
             <End Role="Empleado" EntitySet="Empleadoes" />
             <End Role="AtencionServicioAdicional" EntitySet="AtencionServicioAdicionals" />
@@ -1864,6 +1937,10 @@
             <End Role="Productos_Farmacia" EntitySet="Productos_Farmacia" />
             <End Role="Hospitalizacion" EntitySet="Hospitalizacions" />
           </AssociationSet>
+          <AssociationSet Name="FK__Inventari__IdPro__4C6B5938" Association="Self.FK__Inventari__IdPro__4C6B5938">
+            <End Role="Productos_Farmacia" EntitySet="Productos_Farmacia" />
+            <End Role="InventarioFarmacia" EntitySet="InventarioFarmacias" />
+          </AssociationSet>
           <AssociationSet Name="FK__Inventari__IdMed__47A6A41B" Association="Self.FK__Inventari__IdMed__47A6A41B">
             <End Role="Productos_Farmacia" EntitySet="Productos_Farmacia" />
             <End Role="InventarioSede" EntitySet="InventarioSedes" />
@@ -1908,53 +1985,24 @@
             <End Role="Proveedores" EntitySet="Proveedores" />
             <End Role="Productos_Proveedor" EntitySet="Productos_Proveedor" />
           </AssociationSet>
-          <EntitySet Name="InventarioFarmacias" EntityType="dbVeterinariaModel.InventarioFarmacia" />
-          <EntitySet Name="sysdiagrams" EntityType="dbVeterinariaModel.sysdiagram" />
-          <AssociationSet Name="FK__Inventari__IdPro__4C6B5938" Association="dbVeterinariaModel.FK__Inventari__IdPro__4C6B5938">
-            <End Role="Productos_Farmacia" EntitySet="Productos_Farmacia" />
-            <End Role="InventarioFarmacia" EntitySet="InventarioFarmacias" />
-          </AssociationSet>
+          <EntitySet Name="Users" EntityType="bdVeterinariaEntities.User" />
         </EntityContainer>
-        <EntityType Name="InventarioFarmacia">
+        <EntityType Name="User">
           <Key>
-            <PropertyRef Name="IdInventario" />
+            <PropertyRef Name="Usuario" />
           </Key>
-          <Property Name="IdInventario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdProductosFarmacia" Type="Int32" Nullable="false" />
-          <Property Name="FechaVencimiento" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Cantidad" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Productos_Farmacia" Relationship="dbVeterinariaModel.FK__Inventari__IdPro__4C6B5938" FromRole="InventarioFarmacia" ToRole="Productos_Farmacia" />
+          <Property Name="Usuario" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Clave" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Rol" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <Association Name="FK__Inventari__IdPro__4C6B5938">
-          <End Type="dbVeterinariaModel.Productos_Farmacia" Role="Productos_Farmacia" Multiplicity="1" />
-          <End Type="dbVeterinariaModel.InventarioFarmacia" Role="InventarioFarmacia" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Productos_Farmacia">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="InventarioFarmacia">
-              <PropertyRef Name="IdProductosFarmacia" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="dbVeterinariaModelStoreContainer" CdmEntityContainer="dbVeterinariaEntities">
+        <EntityContainerMapping StorageEntityContainer="bdVeterinariaEntitiesStoreContainer" CdmEntityContainer="dbVeterinariaEntities">
           <EntitySetMapping Name="AtencionServicioAdicionals">
-            <EntityTypeMapping TypeName="dbVeterinariaModel.AtencionServicioAdicional">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.AtencionServicioAdicional">
               <MappingFragment StoreEntitySet="AtencionServicioAdicional">
                 <ScalarProperty Name="IdAtencion" ColumnName="IdAtencion" />
                 <ScalarProperty Name="IdMascota" ColumnName="IdMascota" />
@@ -1966,7 +2014,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Camas">
-            <EntityTypeMapping TypeName="dbVeterinariaModel.Cama">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.Cama">
               <MappingFragment StoreEntitySet="Cama">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
@@ -1975,7 +2023,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Cirugias">
-            <EntityTypeMapping TypeName="dbVeterinariaModel.Cirugia">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.Cirugia">
               <MappingFragment StoreEntitySet="Cirugia">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ID_Mascota" ColumnName="ID_Mascota" />
@@ -1988,7 +2036,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Citas">
-            <EntityTypeMapping TypeName="dbVeterinariaModel.Cita">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.Cita">
               <MappingFragment StoreEntitySet="Cita">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
@@ -2003,7 +2051,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Ciudads">
-            <EntityTypeMapping TypeName="dbVeterinariaModel.Ciudad">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.Ciudad">
               <MappingFragment StoreEntitySet="Ciudad">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -2011,7 +2059,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Compras">
-            <EntityTypeMapping TypeName="dbVeterinariaModel.Compra">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.Compra">
               <MappingFragment StoreEntitySet="Compra">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ID_ProductosProveedor" ColumnName="ID_ProductosProveedor" />
@@ -2022,7 +2070,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Detalle_Factura">
-            <EntityTypeMapping TypeName="dbVeterinariaModel.Detalle_Factura">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.Detalle_Factura">
               <MappingFragment StoreEntitySet="Detalle_Factura">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ID_Factura" ColumnName="ID_Factura" />
@@ -2035,7 +2083,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Empleadoes">
-            <EntityTypeMapping TypeName="dbVeterinariaModel.Empleado">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.Empleado">
               <MappingFragment StoreEntitySet="Empleado">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -2046,7 +2094,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Especies">
-            <EntityTypeMapping TypeName="dbVeterinariaModel.Especie">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.Especie">
               <MappingFragment StoreEntitySet="Especie">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -2054,7 +2102,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EstadosOrdenCompras">
-            <EntityTypeMapping TypeName="dbVeterinariaModel.EstadosOrdenCompra">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.EstadosOrdenCompra">
               <MappingFragment StoreEntitySet="EstadosOrdenCompra">
                 <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
                 <ScalarProperty Name="NombreEstado" ColumnName="NombreEstado" />
@@ -2062,7 +2110,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Facturas">
-            <EntityTypeMapping TypeName="dbVeterinariaModel.Factura">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.Factura">
               <MappingFragment StoreEntitySet="Factura">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
@@ -2072,7 +2120,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HistorialCompras">
-            <EntityTypeMapping TypeName="dbVeterinariaModel.HistorialCompra">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.HistorialCompra">
               <MappingFragment StoreEntitySet="HistorialCompra">
                 <ScalarProperty Name="EntregaID" ColumnName="EntregaID" />
                 <ScalarProperty Name="OrdenCompraID" ColumnName="OrdenCompraID" />
@@ -2082,7 +2130,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Hospitalizacions">
-            <EntityTypeMapping TypeName="dbVeterinariaModel.Hospitalizacion">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.Hospitalizacion">
               <MappingFragment StoreEntitySet="Hospitalizacion">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ID_Mascota" ColumnName="ID_Mascota" />
@@ -2094,8 +2142,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="InventarioFarmacias">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.InventarioFarmacia">
+              <MappingFragment StoreEntitySet="InventarioFarmacia">
+                <ScalarProperty Name="IdInventario" ColumnName="IdInventario" />
+                <ScalarProperty Name="IdProductosFarmacia" ColumnName="IdProductosFarmacia" />
+                <ScalarProperty Name="FechaVencimiento" ColumnName="FechaVencimiento" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="InventarioSedes">
-            <EntityTypeMapping TypeName="dbVeterinariaModel.InventarioSede">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.InventarioSede">
               <MappingFragment StoreEntitySet="InventarioSede">
                 <ScalarProperty Name="IdInventarioSede" ColumnName="IdInventarioSede" />
                 <ScalarProperty Name="IdMedicamento" ColumnName="IdMedicamento" />
@@ -2107,7 +2165,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Mascotas">
-            <EntityTypeMapping TypeName="dbVeterinariaModel.Mascota">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.Mascota">
               <MappingFragment StoreEntitySet="Mascota">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -2119,7 +2177,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MetodoPagoes">
-            <EntityTypeMapping TypeName="dbVeterinariaModel.MetodoPago">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.MetodoPago">
               <MappingFragment StoreEntitySet="MetodoPago">
                 <ScalarProperty Name="IdMetodoPago" ColumnName="IdMetodoPago" />
                 <ScalarProperty Name="NombreMetodo" ColumnName="NombreMetodo" />
@@ -2127,7 +2185,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrdenesCompras">
-            <EntityTypeMapping TypeName="dbVeterinariaModel.OrdenesCompra">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.OrdenesCompra">
               <MappingFragment StoreEntitySet="OrdenesCompra">
                 <ScalarProperty Name="IdCompra" ColumnName="IdCompra" />
                 <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
@@ -2139,7 +2197,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrdenesCompraDetalles">
-            <EntityTypeMapping TypeName="dbVeterinariaModel.OrdenesCompraDetalle">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.OrdenesCompraDetalle">
               <MappingFragment StoreEntitySet="OrdenesCompraDetalle">
                 <ScalarProperty Name="OrdenCompraDetalleID" ColumnName="OrdenCompraDetalleID" />
                 <ScalarProperty Name="OrdenCompraID" ColumnName="OrdenCompraID" />
@@ -2151,7 +2209,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Prescripcions">
-            <EntityTypeMapping TypeName="dbVeterinariaModel.Prescripcion">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.Prescripcion">
               <MappingFragment StoreEntitySet="Prescripcion">
                 <ScalarProperty Name="Id_Prescripcion" ColumnName="Id_Prescripcion" />
                 <ScalarProperty Name="Id_Paciente" ColumnName="Id_Paciente" />
@@ -2163,7 +2221,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Productos_Farmacia">
-            <EntityTypeMapping TypeName="dbVeterinariaModel.Productos_Farmacia">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.Productos_Farmacia">
               <MappingFragment StoreEntitySet="Productos_Farmacia">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -2174,7 +2232,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Productos_Proveedor">
-            <EntityTypeMapping TypeName="dbVeterinariaModel.Productos_Proveedor">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.Productos_Proveedor">
               <MappingFragment StoreEntitySet="Productos_Proveedor">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -2185,7 +2243,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Propietarios">
-            <EntityTypeMapping TypeName="dbVeterinariaModel.Propietario">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.Propietario">
               <MappingFragment StoreEntitySet="Propietario">
                 <ScalarProperty Name="Cedula" ColumnName="Cedula" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -2196,7 +2254,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Proveedores">
-            <EntityTypeMapping TypeName="dbVeterinariaModel.Proveedore">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.Proveedore">
               <MappingFragment StoreEntitySet="Proveedores">
                 <ScalarProperty Name="NIT" ColumnName="NIT" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -2206,7 +2264,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Razas">
-            <EntityTypeMapping TypeName="dbVeterinariaModel.Raza">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.Raza">
               <MappingFragment StoreEntitySet="Raza">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -2215,7 +2273,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Sedes">
-            <EntityTypeMapping TypeName="dbVeterinariaModel.Sede">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.Sede">
               <MappingFragment StoreEntitySet="Sede">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -2226,7 +2284,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ServiciosAdicionales">
-            <EntityTypeMapping TypeName="dbVeterinariaModel.ServiciosAdicionale">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.ServiciosAdicionale">
               <MappingFragment StoreEntitySet="ServiciosAdicionales">
                 <ScalarProperty Name="IdServicio" ColumnName="IdServicio" />
                 <ScalarProperty Name="NombreServicio" ColumnName="NombreServicio" />
@@ -2236,24 +2294,32 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="InventarioFarmacias">
-            <EntityTypeMapping TypeName="dbVeterinariaModel.InventarioFarmacia">
-              <MappingFragment StoreEntitySet="InventarioFarmacia">
-                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
-                <ScalarProperty Name="FechaVencimiento" ColumnName="FechaVencimiento" />
-                <ScalarProperty Name="IdProductosFarmacia" ColumnName="IdProductosFarmacia" />
-                <ScalarProperty Name="IdInventario" ColumnName="IdInventario" />
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="dbVeterinariaModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.Usuario">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="Usuario1" ColumnName="Usuario" />
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="bdVeterinariaEntities.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
