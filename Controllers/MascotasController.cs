@@ -4,12 +4,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using VeterinariaServ.Clases;
 using VeterinariaServ.Models;
 
 namespace VeterinariaServ.Controllers
 {
-    
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [RoutePrefix("api/Mascotas")]
     public class MascotasController : ApiController
     {
@@ -49,6 +50,15 @@ namespace VeterinariaServ.Controllers
         {
             clsMascota mascota = new clsMascota();
             return mascota.Eliminar(IdMascota);
+        }
+
+        [HttpGet]
+        [Route("ConsultarPorPropietario")]
+        public List<MascotaDTO> ConsultarPorPropietario(int CedulaPropietario)
+        {
+            clsMascota mascota = new clsMascota();
+
+            return mascota.ConsultarPorPropietario(CedulaPropietario);
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using VeterinariaServ.Clases;
+using System.Web.Http.Cors;
 
 namespace VeterinariaServ
 {
@@ -12,6 +13,7 @@ namespace VeterinariaServ
     {
         public static void Register(HttpConfiguration config)
         {
+            var cors = new EnableCorsAttribute("*", "*", "*");
             //Configurar Token
             config.EnableCors();
             config.MessageHandlers.Add(new TokenValidationHandler());
