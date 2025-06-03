@@ -50,7 +50,7 @@ namespace VeterinariaServ.Clases
 
         }
 
-        public Propietario Consultar(int Cedula)
+            public Propietario Consultar(int Cedula)
         {
             Propietario prop = dbVeterinaria.Propietarios.FirstOrDefault(p => p.Cedula == Cedula);
             return prop;

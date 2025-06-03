@@ -23,7 +23,12 @@ namespace VeterinariaServ.Clases
                     logRpta.Mensaje = "Usuario no existe";
                     return false;
                 }
-                login.Clave = usuario.Clave;
+                if (usuario.Clave != login.Clave)
+                {
+                    logRpta = new LoginRespuesta();
+                    logRpta.Mensaje = "Clave incorrecta";
+                    return false;
+                }
                 return true;
             }
             catch (Exception ex)
@@ -45,6 +50,8 @@ namespace VeterinariaServ.Clases
                        select new LoginRespuesta
                        {
                            Usuario = U.Usuario,
+                           Documento = U.Clave,
+                           PaginaInicio = U.Rol,    
                            Autenticado = true,
                            Token = token,
                            Mensaje = "Usuario autenticado",

@@ -92,5 +92,23 @@ namespace VeterinariaServ.Clases
                        Nombre = T.Nombre
                    };
         }
+
+        public List<MascotaDTO> ConsultarPorPropietario(int CedulaPropietario)
+        {
+            var consulta = from m in veterinaria.Mascotas
+                           join r in veterinaria.Razas on m.ID_Raza equals r.ID
+                           join e in veterinaria.Especies on r.ID_Especie equals e.ID
+                           where m.ID_Propietario == CedulaPropietario
+                           select new MascotaDTO
+                           {
+                               Nombre = m.Nombre,
+                               FechaNacimiento = (DateTime)m.FechaNacimiento,
+                               NombreEspecie = e.Nombre,
+                               NombreRaza = r.Nombre ,
+                               Sexo = m.Sexo,
+                           };
+
+            return consulta.ToList();
+        }
     }
 }

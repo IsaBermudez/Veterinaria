@@ -19,5 +19,6 @@ namespace VeterinariaServ.Models
         public bool Autenticado { get; set; }
         public string Token { get; set; }
         public string Mensaje { get; set; }
+        public string Documento { get; set; }
     }
 }

@@ -4,11 +4,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using VeterinariaServ.Clases;
 using VeterinariaServ.Models;
 
 namespace VeterinariaServ.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [RoutePrefix("api/Login")]
     public class LoginController : ApiController
     {
