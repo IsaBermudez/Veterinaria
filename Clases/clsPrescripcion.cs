@@ -76,6 +76,25 @@ namespace VeterinariaServ.Clases
             {
                 return ex.Message;
             }
+
+        }
+        public IQueryable PrescripcionConMascota()
+        {
+            return from m in dbVeterinaria.Set<Mascota>()
+                   join r in dbVeterinaria.Set<Raza>() on m.ID_Raza equals r.ID
+                   join e in dbVeterinaria.Set<Especie>() on r.ID_Especie equals e.ID
+                   join p in dbVeterinaria.Set<Prescripcion>() on m.ID equals p.Id_Paciente
+                   join me in dbVeterinaria.Set<Empleado>() on p.Id_Medico equals me.ID
+                   join med in dbVeterinaria.Set<Productos_Farmacia>() on p.Id_Medicamento equals med.ID
+                   select new
+                   {
+                       NombreMascota = m.Nombre,
+                       Raza = r.Nombre,
+                       Especie = e.Nombre,
+                       Sexo = m.Sexo,
+                       Medico = me.Nombre,
+                       Medicamento = med.Nombre
+                   };
         }
     }
 }

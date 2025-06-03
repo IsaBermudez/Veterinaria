@@ -54,5 +54,13 @@ namespace VeterinariaServ.Controllers
             clsPrescripcion pre = new clsPrescripcion();
             return pre.EliminarXId(Id);
         }
+        [HttpGet]
+        [Route("PrescripcionConMascota")]
+        public IQueryable PrescripcionConMascota()
+        {
+            //Se crea el objeto de la clase ClsCliente, y se invoca el método Consultar
+            clsPrescripcion prescripcion = new clsPrescripcion();
+            return prescripcion.PrescripcionConMascota();
+        }
     }
 }

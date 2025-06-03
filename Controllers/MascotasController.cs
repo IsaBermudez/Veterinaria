@@ -50,5 +50,12 @@ namespace VeterinariaServ.Controllers
             clsMascota mascota = new clsMascota();
             return mascota.Eliminar(IdMascota);
         }
+        [HttpGet]
+        [Route("LlenarCombo")]
+        public IQueryable LlenarCombo()
+        {
+            clsMascota mascota = new clsMascota();
+            return mascota.LlenarCombo();
+        }
     }
 }
