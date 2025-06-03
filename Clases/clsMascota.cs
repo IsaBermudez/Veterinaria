@@ -82,5 +82,15 @@ namespace VeterinariaServ.Clases
         {
             return veterinaria.Mascotas.FirstOrDefault(m => m.ID == IdMascota);
         }
+        public IQueryable LlenarCombo()
+        {
+            return from T in veterinaria.Set<Mascota>()
+                   orderby T.Nombre
+                   select new
+                   {
+                       Codigo = T.ID,
+                       Nombre = T.Nombre
+                   };
+        }
     }
 }
