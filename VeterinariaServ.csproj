@@ -186,6 +186,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\BundleConfig2.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -239,6 +240,7 @@
     <Compile Include="Clases\clsProductoFarmacia.cs" />
     <Compile Include="Clases\clsPropietario.cs" />
     <Compile Include="Clases\clsRaza.cs" />
+    <Compile Include="Clases\clsSede.cs" />
     <Compile Include="Clases\clsServiciosAdicionales.cs" />
     <Compile Include="Clases\clsUsuario.cs" />
     <Compile Include="Clases\TokenGenerator.cs" />
@@ -265,6 +267,7 @@
     <Compile Include="Controllers\ProductoMedicamentoController.cs" />
     <Compile Include="Controllers\PropietariosController.cs" />
     <Compile Include="Controllers\RazasController.cs" />
+    <Compile Include="Controllers\SedesController.cs" />
     <Compile Include="Controllers\ServiciosAdicionalesController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -465,11 +468,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Data\" />
     <Folder Include="Views\Camas\" />
     <Folder Include="Views\Cirugias\" />
     <Folder Include="Views\Citas\" />
     <Folder Include="Views\Hospitalizaciones\" />
     <Folder Include="Views\Razas\" />
+    <Folder Include="Views\Sedes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\bootstrap.min.js.map" />

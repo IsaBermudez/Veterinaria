@@ -144,5 +144,24 @@ namespace VeterinariaServ.Clases
         }
 
 
+        public IQueryable ObtenerCitaDetallada()
+        {
+            return from c in dbVeterinaria.Set<Cita>()
+                   join m in dbVeterinaria.Set<Mascota>() on c.ID_Mascota equals m.ID
+                   join emp in dbVeterinaria.Set<Empleado>() on c.ID_Empleado equals emp.ID
+                   join s in dbVeterinaria.Set<Sede>() on c.ID_Sede equals s.ID
+                   select new
+                   {
+                       ID_Cita = c.ID,
+                       NombreMascota = m.Nombre,
+                       NombreEmpleado = emp.Nombre,
+                       NombreSede = s.Nombre,
+                       FechaHora = c.FechaHora,
+                       Estado = c.Estado,
+                       TipoCita = c.TipoCita
+                   };
+        }
+
+
     }
 }

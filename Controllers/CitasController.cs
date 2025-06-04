@@ -4,12 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
+
 
 
 namespace VeterinariaServ.Controllers
 {
-
-
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [RoutePrefix("api/Citas")]
     public class CitasController : ApiController
     {
@@ -88,6 +89,14 @@ namespace VeterinariaServ.Controllers
             {
                 return InternalServerError(ex);
             }
+        }
+
+        [HttpGet]
+        [Route("ObtenerCita")]
+        public IQueryable CitaRegistro()
+        {
+            clsCita cit = new clsCita();
+            return cit.ObtenerCitaDetallada();
         }
     }
 
