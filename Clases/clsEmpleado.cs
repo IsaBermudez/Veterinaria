@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Migrations;
 using System.Linq;
+using System.Data.Entity.Migrations;
 using System.Web;
 using VeterinariaServ.Models;
 
 namespace VeterinariaServ.Clases
 {
-    public class clsProductoFarmacia
+    public class clsEmpleado
     {
         private dbVeterinariaEntities dbVeterinaria = new dbVeterinariaEntities();
-        public Productos_Farmacia ProductosFarmacia { get; set; }
+        public Empleado empleado { get; set; }
 
-        public clsProductoFarmacia()
+        public clsEmpleado()
         {
             dbVeterinaria = new dbVeterinariaEntities();
             dbVeterinaria.Configuration.LazyLoadingEnabled = false;
@@ -22,13 +22,13 @@ namespace VeterinariaServ.Clases
         {
             try
             {
-                dbVeterinaria.Productos_Farmacia.Add(ProductosFarmacia);
+                dbVeterinaria.Empleadoes.Add(empleado);
                 dbVeterinaria.SaveChanges();
-                return "El producto se agrego correctamente al inventario de la farmacia";
+                return "El empleado se agrego correctamente";
             }
             catch (Exception ex)
             {
-                return "Error al insertar el producto al inventario de la farmacia " + ex.Message;
+                return "Error al insertar el empleado " + ex.Message;
             }
 
 
@@ -36,27 +36,27 @@ namespace VeterinariaServ.Clases
 
         public string Actualizar()
         {
-            Productos_Farmacia pf = Consultar(ProductosFarmacia.ID);
+            Empleado pf = Consultar(empleado.ID);
             if (pf == null)
             {
-                return "El id del medicamento de la farmacia no es válido";
+                return "El id del empleado no es válido";
             }
-            dbVeterinaria.Productos_Farmacia.AddOrUpdate(ProductosFarmacia);
+            dbVeterinaria.Empleadoes.AddOrUpdate(empleado);
             dbVeterinaria.SaveChanges();
-            return "Se actualizó el medicamento correctamente";
+            return "Se actualizó el empleado correctamente";
 
         }
 
-        public Productos_Farmacia Consultar(int Id)
+        public Empleado Consultar(int Id)
         {
-            Productos_Farmacia pf = dbVeterinaria.Productos_Farmacia.FirstOrDefault(m => m.ID == Id);
+            Empleado pf = dbVeterinaria.Empleadoes.FirstOrDefault(m => m.ID == Id);
             return pf;
 
         }
-        public List<Productos_Farmacia> ConsultarTodos()
+        public List<Empleado> ConsultarTodos()
         {
-            return dbVeterinaria.Productos_Farmacia
-                .OrderBy(p => p.Nombre )
+            return dbVeterinaria.Empleadoes
+                .OrderBy(p => p.Nombre)
                 .ToList();
         }
         public string EliminarXId(int Id)
@@ -64,14 +64,14 @@ namespace VeterinariaServ.Clases
             try
             {
 
-                Productos_Farmacia pf = Consultar(Id);
+                Empleado pf = Consultar(Id);
                 if (pf == null)
                 {
-                    return "El id del medicamento no es válido";
+                    return "El id del empleado no es válido";
                 }
-                dbVeterinaria.Productos_Farmacia.Remove(pf);
+                dbVeterinaria.Empleadoes.Remove(pf);
                 dbVeterinaria.SaveChanges();
-                return "Se eliminó el medicamento correctamente";
+                return "Se eliminó el empleado correctamente";
             }
             catch (Exception ex)
             {
@@ -81,7 +81,7 @@ namespace VeterinariaServ.Clases
 
         public IQueryable LlenarCombo()
         {
-            return from T in dbVeterinaria.Set<Productos_Farmacia>()
+            return from T in dbVeterinaria.Set<Empleado>()
                    orderby T.Nombre
                    select new
                    {
@@ -89,6 +89,5 @@ namespace VeterinariaServ.Clases
                        Nombre = T.Nombre
                    };
         }
-
     }
 }

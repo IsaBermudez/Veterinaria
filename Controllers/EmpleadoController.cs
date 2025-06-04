@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.Remoting.Messaging;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using VeterinariaServ.Clases;
@@ -11,40 +12,40 @@ using VeterinariaServ.Models;
 namespace VeterinariaServ.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    [RoutePrefix("api/ProductoFarmacia")]
-    public class ProductoMedicamentoController : ApiController
+    [RoutePrefix("api/Empleado")]
+    public class EmpleadoController : ApiController
     {
         [HttpGet]
         [Route("ConsultarTodos")]
-        public List<Productos_Farmacia> ConsultarTodos()
+        public List<Empleado> ConsultarTodos()
         {
-            clsProductoFarmacia pf = new clsProductoFarmacia();
+            clsEmpleado pf = new clsEmpleado();
             return pf.ConsultarTodos();
         }
 
         [HttpGet]
         [Route("ConsultarXId")]
-        public Productos_Farmacia ConsultarXId(int Id)
+        public Empleado ConsultarXId(int Id)
         {
-            clsProductoFarmacia pf = new clsProductoFarmacia();
+            clsEmpleado pf = new clsEmpleado();
             return pf.Consultar(Id);
         }
 
         [HttpPost]
         [Route("Insertar")]
-        public string Insertar([FromBody] Productos_Farmacia Producto)
+        public string Insertar([FromBody] Empleado em)
         {
-            clsProductoFarmacia pf = new clsProductoFarmacia();
-            pf.ProductosFarmacia = Producto;
+            clsEmpleado pf = new clsEmpleado();
+            pf.empleado = em;
             return pf.Insertar();
         }
 
         [HttpPut]
         [Route("Actualizar")]
-        public string Actualizar([FromBody] Productos_Farmacia Producto)
+        public string Actualizar([FromBody] Empleado em)
         {
-            clsProductoFarmacia pf = new clsProductoFarmacia();
-            pf.ProductosFarmacia = Producto;
+            clsEmpleado pf = new clsEmpleado();
+            pf.empleado = em;
             return pf.Actualizar();
         }
 
@@ -52,15 +53,15 @@ namespace VeterinariaServ.Controllers
         [Route("EliminarXId")]
         public string EliminarXId(int Id)
         {
-            clsProductoFarmacia pf = new clsProductoFarmacia();
+            clsEmpleado pf = new clsEmpleado();
             return pf.EliminarXId(Id);
         }
         [HttpGet]
         [Route("LlenarCombo")]
         public IQueryable LlenarCombo()
         {
-            clsProductoFarmacia medicamento = new clsProductoFarmacia();
-            return medicamento.LlenarCombo();
+            clsEmpleado pf = new clsEmpleado();
+            return pf.LlenarCombo();
         }
     }
 }

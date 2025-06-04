@@ -221,6 +221,7 @@
     <Compile Include="Clases\clsCirugia.cs" />
     <Compile Include="Clases\clsCitas.cs" />
     <Compile Include="Clases\clsCiudad.cs" />
+    <Compile Include="Clases\clsEmpleado.cs" />
     <Compile Include="Clases\clsEspecie.cs" />
     <Compile Include="Clases\clsEstadosOrdenCompra.cs" />
     <Compile Include="Clases\clsFactura.cs" />
@@ -246,6 +247,7 @@
     <Compile Include="Controllers\CirugiasController.cs" />
     <Compile Include="Controllers\CitasController.cs" />
     <Compile Include="Controllers\CiudadController.cs" />
+    <Compile Include="Controllers\EmpleadoController.cs" />
     <Compile Include="Controllers\EspeciesController.cs" />
     <Compile Include="Controllers\EstadosOrdenCompraController.cs" />
     <Compile Include="Controllers\FacturaController.cs" />
