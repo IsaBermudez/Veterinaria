@@ -81,21 +81,37 @@ namespace VeterinariaServ.Clases
         }
         public IQueryable PrescripcionConMascota()
         {
-            return from m in dbVeterinaria.Set<Mascota>()
-                   join r in dbVeterinaria.Set<Raza>() on m.ID_Raza equals r.ID
-                   join e in dbVeterinaria.Set<Especie>() on r.ID_Especie equals e.ID
-                   join p in dbVeterinaria.Set<Prescripcion>() on m.ID equals p.Id_Paciente
-                   join me in dbVeterinaria.Set<Empleado>() on p.Id_Medico equals me.ID
-                   join med in dbVeterinaria.Set<Productos_Farmacia>() on p.Id_Medicamento equals med.ID
+            return from p in dbVeterinaria.Set<Prescripcion>()
+                   join m in dbVeterinaria.Set<Mascota>() on p.Id_Paciente equals m.ID into mascotas
+                   from m in mascotas.DefaultIfEmpty()
+
+                   join r in dbVeterinaria.Set<Raza>() on m.ID_Raza equals r.ID into razas
+                   from r in razas.DefaultIfEmpty()
+
+                   join e in dbVeterinaria.Set<Especie>() on r.ID_Especie equals e.ID into especies
+                   from e in especies.DefaultIfEmpty()
+
+                   join me in dbVeterinaria.Set<Empleado>() on p.Id_Medico equals me.ID into medicos
+                   from me in medicos.DefaultIfEmpty()
+
+                   join med in dbVeterinaria.Set<Productos_Farmacia>() on p.Id_Medicamento equals med.ID into medicamentos
+                   from med in medicamentos.DefaultIfEmpty()
+
+                   join prop in dbVeterinaria.Set<Propietario>() on m.ID_Propietario equals prop.Cedula into propietarios
+                   from prop in propietarios.DefaultIfEmpty()
+
                    select new
                    {
-                       NombreMascota = m.Nombre,
-                       Raza = r.Nombre,
-                       Especie = e.Nombre,
-                       Sexo = m.Sexo,
-                       Medico = me.Nombre,
-                       Medicamento = med.Nombre
+                       NombreMascota = m != null ? m.Nombre : null,
+                       Raza = r != null ? r.Nombre : null,
+                       Especie = e != null ? e.Nombre : null,
+                       Propietario = prop != null ? prop.Nombre : null,
+                       Medico = me != null ? me.Nombre : null,
+                       Medicamento = med != null ? med.Nombre : null,
+                       Fecha_Prescripcion = p.Fecha_Prescripcion,
+                       Cantidad = p.Cantidad
                    };
         }
+
     }
 }

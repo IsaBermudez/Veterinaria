@@ -46,16 +46,17 @@ namespace VeterinariaServ.Clases
             }
             dbVeterinaria.Propietarios.AddOrUpdate(propietario); 
             dbVeterinaria.SaveChanges(); 
-            return "Se actualizó el propietario correctamente"; 
+            return "Se actualizó el propietario correctamente";
 
         }
 
-            public Propietario Consultar(int Cedula)
+        public Propietario Consultar(int Cedula)
         {
             Propietario prop = dbVeterinaria.Propietarios.FirstOrDefault(p => p.Cedula == Cedula);
             return prop;
 
         }
+
         public List<Propietario> ConsultarTodos()
         {
             return dbVeterinaria.Propietarios
