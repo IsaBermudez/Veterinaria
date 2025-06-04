@@ -7,6 +7,7 @@ using VeterinariaServ.Models;
 
 namespace VeterinariaServ.Clases
 {
+    
     public class clsPrescripcion
     {
         private dbVeterinariaEntities dbVeterinaria = new dbVeterinariaEntities();

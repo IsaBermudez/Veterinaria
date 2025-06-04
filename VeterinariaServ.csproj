@@ -231,6 +231,7 @@
     <Compile Include="Clases\clsLogin.cs" />
     <Compile Include="Clases\clsMascota.cs" />
     <Compile Include="Clases\clsMetodoPago.cs" />
+    <Compile Include="Clases\clsAtencionServicioAdicional.cs" />
     <Compile Include="Clases\clsOrdenesCompra.cs" />
     <Compile Include="Clases\clsOrdenesCompraDet.cs" />
     <Compile Include="Clases\clsPrescripcion.cs" />
