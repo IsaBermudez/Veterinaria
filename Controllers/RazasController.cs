@@ -10,8 +10,8 @@ using VeterinariaServ.Models;
 
 namespace VeterinariaServ.Controllers
 {
-    [RoutePrefix("api/Razas")]
     [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [RoutePrefix("api/Razas")]
     public class RazasController : ApiController
     {
         [HttpGet]
