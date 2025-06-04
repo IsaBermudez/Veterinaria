@@ -51,12 +51,24 @@ namespace VeterinariaServ.Clases
             return oc;
 
         }
-        public List<Factura> ConsultarTodos()
+        public IQueryable<FacturaDTO> ConsultarTodos()
         {
-            return dbVeterinaria.Facturas
-                .OrderBy(p => p.Fecha)
-                .ToList();
+            var consulta = from f in dbVeterinaria.Facturas
+                           join p in dbVeterinaria.Propietarios on f.ID_Cliente equals p.Cedula
+                           where p.Cedula == f.ID_Cliente
+                           select new FacturaDTO
+                           {
+                               NombreCliente = p.Nombre,
+                               Fecha = f.Fecha.HasValue ? f.Fecha.Value : DateTime.MinValue, // Asegurar DateTime válido
+                               ID = f.ID,
+                               Total = f.Total ?? 0m // Null-coalescing con decimal literal
+                           };
+
+
+            return consulta;
         }
+
+
         public string EliminarXId(int Id)
         {
             try

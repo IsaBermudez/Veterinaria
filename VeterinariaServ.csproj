@@ -221,6 +221,7 @@
     <Compile Include="Clases\clsCirugia.cs" />
     <Compile Include="Clases\clsCitas.cs" />
     <Compile Include="Clases\clsCiudad.cs" />
+    <Compile Include="Clases\clsCombos.cs" />
     <Compile Include="Clases\clsEmpleado.cs" />
     <Compile Include="Clases\clsEspecie.cs" />
     <Compile Include="Clases\clsEstadosOrdenCompra.cs" />
@@ -247,6 +248,8 @@
     <Compile Include="Controllers\CirugiasController.cs" />
     <Compile Include="Controllers\CitasController.cs" />
     <Compile Include="Controllers\CiudadController.cs" />
+    <Compile Include="Controllers\CombosController.cs" />
+    <Compile Include="Controllers\CombossController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
     <Compile Include="Controllers\EspeciesController.cs" />
     <Compile Include="Controllers\EstadosOrdenCompraController.cs" />
@@ -279,6 +282,7 @@
     <Compile Include="Models\Cirugia.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProductosDTO.cs" />
     <Compile Include="Models\Cita.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -303,12 +307,14 @@
     <Compile Include="Models\Factura.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FacturaDTO.cs" />
     <Compile Include="Models\HistorialCompra.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Hospitalizacion.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\HospitalizacionDTO.cs" />
     <Compile Include="Models\InventarioFarmacia.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -468,6 +474,7 @@
     <Folder Include="Views\Camas\" />
     <Folder Include="Views\Cirugias\" />
     <Folder Include="Views\Citas\" />
+    <Folder Include="Views\Combos\" />
     <Folder Include="Views\Hospitalizaciones\" />
     <Folder Include="Views\Razas\" />
   </ItemGroup>

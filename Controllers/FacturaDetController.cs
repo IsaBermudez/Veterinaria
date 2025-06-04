@@ -4,11 +4,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using VeterinariaServ.Clases;
 using VeterinariaServ.Models;
 
 namespace VeterinariaServ.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [RoutePrefix("api/FacturaDetalle")]
     public class FacturaDetController : ApiController
     {
@@ -52,6 +54,14 @@ namespace VeterinariaServ.Controllers
         {
             clsFacturaDet oc = new clsFacturaDet();
             return oc.EliminarXId(Id);
+        }
+
+        [HttpGet]
+        [Route("ConsultarXFactura")]
+        public IQueryable ConsultarXFactura(int Id)
+        {
+            clsFacturaDet oc = new clsFacturaDet();
+            return oc.ConsultarXFactura(Id);
         }
     }
 }

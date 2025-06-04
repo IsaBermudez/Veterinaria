@@ -82,6 +82,17 @@ namespace VeterinariaServ.Clases
             }
         }
 
+        public IQueryable LlenarCombo()
+        {
+            return from T in dbVeterinaria.Set<Propietario>()
+                   orderby T.Nombre
+                   select new
+                   {
+                       ID = T.Cedula,
+                       Nombre = T.Nombre
+                   };
+        }
+
     }
     
 }

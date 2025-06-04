@@ -63,5 +63,14 @@ namespace VeterinariaServ.Controllers
             clsPropietario prop = new clsPropietario();
             return prop.EliminarXDocumento(Cedula);
         }
+
+        [HttpGet]
+        [Route("LlenarCombo")]
+        public IQueryable LlenarCombo()
+        {
+            clsPropietario mascota = new clsPropietario();
+            return mascota.LlenarCombo();
+        }
+
     }
 }

@@ -76,5 +76,18 @@ namespace VeterinariaServ.Clases
                 return ex.Message;
             }
         }
+
+        public IQueryable ConsultarXFactura(int ID)
+        {
+            var consulta = from f in dbVeterinaria.Detalle_Factura
+                           where f.ID_Factura == ID
+                           select new 
+                           {
+                               precio = f.PrecioUnitario,
+                           };
+
+
+            return consulta;
+        }
     }
 }
