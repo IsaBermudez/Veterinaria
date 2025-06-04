@@ -97,16 +97,21 @@ namespace VeterinariaServ.Clases
                    join med in dbVeterinaria.Set<Productos_Farmacia>() on p.Id_Medicamento equals med.ID into medicamentos
                    from med in medicamentos.DefaultIfEmpty()
 
+                   join prop in dbVeterinaria.Set<Propietario>() on m.ID_Propietario equals prop.Cedula into propietarios
+                   from prop in propietarios.DefaultIfEmpty()
+
                    select new
                    {
                        NombreMascota = m != null ? m.Nombre : null,
                        Raza = r != null ? r.Nombre : null,
                        Especie = e != null ? e.Nombre : null,
-                       Sexo = m != null ? m.Sexo : null,
+                       Propietario = prop != null ? prop.Nombre : null,
                        Medico = me != null ? me.Nombre : null,
-                       Medicamento = med != null ? med.Nombre : null
+                       Medicamento = med != null ? med.Nombre : null,
+                       Fecha_Prescripcion = p.Fecha_Prescripcion,
+                       Cantidad = p.Cantidad
                    };
         }
-            
+
     }
 }

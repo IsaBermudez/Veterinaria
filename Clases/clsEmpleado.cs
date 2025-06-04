@@ -85,7 +85,7 @@ namespace VeterinariaServ.Clases
                    orderby T.Nombre
                    select new
                    {
-                       Codigo = T.ID,
+                       ID = T.ID,
                        Nombre = T.Nombre
                    };
         }
