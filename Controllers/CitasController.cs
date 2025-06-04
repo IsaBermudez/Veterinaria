@@ -10,7 +10,7 @@ using System.Web.Http.Cors;
 
 namespace VeterinariaServ.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [EnableCors(origins: "http://localhost:44312", headers: "*", methods: "*")]
     [RoutePrefix("api/Citas")]
     public class CitasController : ApiController
     {
