@@ -26,6 +26,14 @@ namespace VeterinariaServ.Controllers
         }
 
 
+        [HttpGet]
+        [Route("LlenarComboPorPropietario")]
+        public IQueryable LlenarComboPorPropietario(int cedulaPropietario)
+        {
+            clsMascota mascota = new clsMascota();
+            return mascota.LlenarComboPorPropietario(cedulaPropietario);
+        }
+
         [HttpPost]
         [Route("Insertar")]
         public string Insertar([FromBody] Mascota Mascota)

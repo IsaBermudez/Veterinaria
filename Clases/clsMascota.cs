@@ -22,6 +22,18 @@ namespace VeterinariaServ.Clases
             return veterinaria.Mascotas.ToList();
         }
 
+        public IQueryable LlenarComboPorPropietario(int cedulaPropietario)
+        {
+            return from m in veterinaria.Mascotas
+                   where m.ID_Propietario == cedulaPropietario
+                   orderby m.Nombre
+                   select new
+                   {
+                       ID = m.ID,
+                       Nombre = m.Nombre
+                   };
+        }
+
         public String Insertar()
         {
             try

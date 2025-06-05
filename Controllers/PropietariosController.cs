@@ -10,10 +10,12 @@ using VeterinariaServ.Models;
 
 namespace VeterinariaServ.Controllers
 {
+    
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     [RoutePrefix("api/Propietarios")]
     public class PropietariosController : ApiController
     {
+        [Authorize(Roles = "Administrador")]
         [HttpGet]
         [Route("ConsultarTodos")]
         public List<Propietario> ConsultarTodos()
@@ -30,6 +32,7 @@ namespace VeterinariaServ.Controllers
             return prop.Consultar(Cedula);
         }
 
+        [Authorize(Roles = "Administrador")]
         [HttpPost]
         [Route("Insertar")]
         public string Insertar([FromBody] Propietario propietario)
@@ -41,12 +44,13 @@ namespace VeterinariaServ.Controllers
             {
                 Usuario = propietario.Correo,
                 Clave = propietario.Cedula.ToString(),
-                Rol = "General.html"
+                Rol = "Usuario"
             };
             user.Insertar();
             return prop.Insertar();
         }
 
+        [Authorize(Roles = "Administrador")]
         [HttpPut]
         [Route("Actualizar")]
         public string Actualizar([FromBody] Propietario propietario)
@@ -56,6 +60,7 @@ namespace VeterinariaServ.Controllers
             return prop.Actualizar();
         }
 
+        [Authorize(Roles = "Administrador")]
         [HttpDelete]
         [Route("EliminarXDocumento")]
         public string EliminarXDocumento(int Cedula)
