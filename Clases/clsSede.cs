@@ -54,24 +54,24 @@ namespace VeterinariaServ.Clases
             return sed;
 
         }
-        public List<Sede> ConsultarTodos()
+        public IQueryable ConsultarTodos()
         {
             var consulta = from c in dbVeterinaria.Citas
                            join m in dbVeterinaria.Mascotas on c.ID_Mascota equals m.ID
-                           join p in dbVeterinaria. on propa.
-                           where m.ID_Propietario == CedulaPropietario
+                           join p in dbVeterinaria.Propietarios on m.ID_Propietario equals p.Cedula
+                           join e in dbVeterinaria.Empleadoes on c.ID_Empleado equals e.ID
+                           join s in dbVeterinaria.Sedes on e.ID_Sede equals s.ID
                            select new
                            {
-                               Nombre = m.Nombre,
-                               FechaNacimiento = (DateTime)m.FechaNacimiento,
-                               NombreEspecie = e.Nombre,
-                               NombreRaza = r.Nombre,
-                               Sexo = m.Sexo,
+                                ID = c.ID,
+                                MascotaN = m.Nombre,
+                                EmpleadoN = e.Nombre,
+                                SedeN = s.Nombre,
+                                FechaHora = c.FechaHora,
+                                TipoCita = c.TipoCita,
                            };
 
-            return dbVeterinaria.Sedes
-                .OrderBy(p => p.Nombre)
-                .ToList();
+            return consulta;
         }
 
         public IQueryable LlenarCombo()

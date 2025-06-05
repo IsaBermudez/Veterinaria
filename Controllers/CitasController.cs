@@ -16,7 +16,7 @@ namespace VeterinariaServ.Controllers
     {
         [HttpGet]
         [Route("ConsultarTodos")]
-        public List<Cita> ConsultarTodos()
+        public IQueryable ConsultarTodos()
         {
             clsCita cit = new clsCita();
             return cit.ConsultarTodos();

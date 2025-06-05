@@ -16,7 +16,7 @@ namespace VeterinariaServ.Controllers
     {
         [HttpGet]
         [Route("ConsultarTodos")]
-        public List<Sede> ConsultarTodos()
+        public IQueryable ConsultarTodos()
         {
             clsSede sed = new clsSede();
             return sed.ConsultarTodos();

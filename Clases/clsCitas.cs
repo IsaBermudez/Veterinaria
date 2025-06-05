@@ -69,9 +69,22 @@ namespace VeterinariaServ.Clases
         }
         public IQueryable ConsultarTodos()
         {
-            return dbVeterinaria.Citas
-                .OrderBy(c => c.FechaHora)
-                .ToList();
+            var consulta = from c in dbVeterinaria.Citas
+                           join m in dbVeterinaria.Mascotas on c.ID_Mascota equals m.ID
+                           join p in dbVeterinaria.Propietarios on m.ID_Propietario equals p.Cedula
+                           join e in dbVeterinaria.Empleadoes on c.ID_Empleado equals e.ID
+                           join s in dbVeterinaria.Sedes on e.ID_Sede equals s.ID
+                           select new
+                           {
+                               ID = c.ID,
+                               MascotaN = m.Nombre,
+                               EmpleadoN = e.Nombre,
+                               SedeN = s.Nombre,
+                               FechaHora = c.FechaHora,
+                               TipoCita = c.TipoCita,
+                           };
+
+            return consulta;
         }
 
         public List<Cita> ConsultarPorFecha(DateTime fecha)
