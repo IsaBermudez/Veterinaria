@@ -78,5 +78,20 @@ namespace VeterinariaServ.Clases
                 return ex.Message;
             }
         }
+<<<<<<< Updated upstream
+=======
+
+        public IQueryable LlenarCombo()
+        {
+            return from T in dbVeterinaria.Set<Productos_Farmacia>()
+                   orderby T.Nombre
+                   select new
+                   {
+                       ID = T.ID,
+                       Nombre = T.Nombre    
+                   };
+        }
+
+>>>>>>> Stashed changes
     }
 }

@@ -55,5 +55,32 @@ namespace VeterinariaServ.Controllers
             clsMascota mascota = new clsMascota();
             return mascota.LlenarCombo();
         }
+<<<<<<< Updated upstream
+=======
+        [HttpGet]
+        [Route("ConsultarXID")]
+        public Mascota ConsultarXId(int ID)
+        {
+            clsMascota pre = new clsMascota();
+            return pre.Consultar(ID);
+        }
+
+        [HttpGet]
+        [Route("ConsultarPorPropietario")]
+        public List<MascotaDTO> ConsultarPorPropietario(int CedulaPropietario)
+        {
+            clsMascota mascota = new clsMascota();
+
+            return mascota.ConsultarPorPropietario(CedulaPropietario);
+        }
+        [HttpGet]
+        [Route("LlenarComboPorPropietario")]
+        public IQueryable LlenarComboPorPropietario(int cedulaPropietario)
+        {
+            clsMascota mascota = new clsMascota();
+            return mascota.LlenarComboPorPropietario(cedulaPropietario);
+        }
+
+>>>>>>> Stashed changes
     }
 }
