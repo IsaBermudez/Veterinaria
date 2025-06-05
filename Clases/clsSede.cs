@@ -56,6 +56,19 @@ namespace VeterinariaServ.Clases
         }
         public List<Sede> ConsultarTodos()
         {
+            var consulta = from c in dbVeterinaria.Citas
+                           join m in dbVeterinaria.Mascotas on c.ID_Mascota equals m.ID
+                           join p in dbVeterinaria. on propa.
+                           where m.ID_Propietario == CedulaPropietario
+                           select new
+                           {
+                               Nombre = m.Nombre,
+                               FechaNacimiento = (DateTime)m.FechaNacimiento,
+                               NombreEspecie = e.Nombre,
+                               NombreRaza = r.Nombre,
+                               Sexo = m.Sexo,
+                           };
+
             return dbVeterinaria.Sedes
                 .OrderBy(p => p.Nombre)
                 .ToList();
@@ -67,7 +80,7 @@ namespace VeterinariaServ.Clases
                    orderby T.Nombre
                    select new
                    {
-                       Codigo = T.ID,
+                       ID = T.ID,
                        Nombre = T.Nombre
                    };
         }

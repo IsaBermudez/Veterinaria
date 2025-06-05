@@ -67,7 +67,7 @@ namespace VeterinariaServ.Clases
             return cit;
 
         }
-        public List<Cita> ConsultarTodos()
+        public IQueryable ConsultarTodos()
         {
             return dbVeterinaria.Citas
                 .OrderBy(c => c.FechaHora)
